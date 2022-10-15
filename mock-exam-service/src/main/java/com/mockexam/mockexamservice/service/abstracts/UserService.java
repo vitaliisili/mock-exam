@@ -1,0 +1,12 @@
+package com.mockexam.mockexamservice.service.abstracts;
+
+import com.mockexam.mockexamservice.model.User;
+
+import java.util.Optional;
+
+public interface UserService extends ReadWriteService<User, Long>{
+
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
+
+}
