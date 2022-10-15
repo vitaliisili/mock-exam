@@ -1,0 +1,43 @@
+version: "3.2"
+
+services:
+  postgres-db:
+    container_name: "mock-exam-service-database"
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: $DB_USERNAME
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
+    restart: always
+
+  mock-exam-service:
+    build:
+      context: mock-exam-service
+      dockerfile: Dockerfile
+    container_name: mock-exam-service
+    image: vitaliisili/mock-exam-service
+    depends_on:
+      - postgres-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mock-exam
+      SPRING_DATASOURCE_USERNAME: $DB_USERNAME
+      SPRING_DATASOURCE_PASSWORD: $DB_PASSWORD
+    ports:
+      - "9002:9002"
+    restart: on-failure
+
+  mock-exam-ui:
+    build:
+      context: mock-exam-ui
+      dockerfile: Dockerfile
+    container_name: mock-exam-ui
+    image: vitaliisili/mock-exam-ui
+    depends_on:
+      - mock-exam-service
+    ports:
+      - "8080:80"
+    restart: always
