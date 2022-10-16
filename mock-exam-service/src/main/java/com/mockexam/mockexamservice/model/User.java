@@ -1,9 +1,9 @@
 package com.mockexam.mockexamservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -28,11 +28,16 @@ public class User extends BaseEntity{
 
     private String secondName;
 
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "USERS_ROLE",
             joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     @ToString.Exclude
-    private List<Role> roles;
+    private Set<Role> roles;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Exam> exams;
 
 }

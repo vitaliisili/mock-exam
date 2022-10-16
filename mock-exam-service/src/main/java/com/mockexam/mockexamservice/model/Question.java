@@ -2,7 +2,6 @@ package com.mockexam.mockexamservice.model;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor

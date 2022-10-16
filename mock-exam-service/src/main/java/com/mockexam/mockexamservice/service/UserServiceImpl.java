@@ -1,6 +1,7 @@
 package com.mockexam.mockexamservice.service;
 
 import com.mockexam.mockexamservice.model.User;
+import com.mockexam.mockexamservice.model.dto.UserDto;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
 import com.mockexam.mockexamservice.repository.UserRepository;
 import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstraction;
@@ -30,5 +31,15 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
     @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void update(UserDto userDto) {
+        //TODO: add implementation
+    }
+
+    @Override
+    public void persist(UserDto userDto) {
+       //TODO: add implementation
     }
 }

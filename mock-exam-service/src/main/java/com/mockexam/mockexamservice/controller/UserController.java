@@ -1,35 +1,44 @@
 package com.mockexam.mockexamservice.controller;
 
 import com.mockexam.mockexamservice.model.User;
+import com.mockexam.mockexamservice.model.dto.UserDto;
 import com.mockexam.mockexamservice.service.abstracts.UserService;
+import com.mockexam.mockexamservice.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/user")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userService.findAll();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userMapper.toUserListDto(users));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.findById(id).orElseThrow();
-        return ResponseEntity.ok(user);
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(userMapper.toUserDto(user.get()));
+        }
+        return new ResponseEntity<>(String.format("User with id %s not found", id), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
-    public ResponseEntity<String> persistUser(@RequestBody User user) {
-        System.out.println(user);
-        userService.persist(user);
+    public ResponseEntity<String> persistUser(@RequestBody UserDto userDto) {
+        userService.persist(userDto);
         return ResponseEntity.ok("User has been saved successful");
     }
 
