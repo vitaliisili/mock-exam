@@ -1,14 +1,12 @@
 package com.mockexam.mockexamservice.service;
 
 import com.mockexam.mockexamservice.model.Exam;
-import com.mockexam.mockexamservice.model.Type;
 import com.mockexam.mockexamservice.model.User;
 import com.mockexam.mockexamservice.repository.ExamRepository;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
-import com.mockexam.mockexamservice.repository.UserRepository;
 import com.mockexam.mockexamservice.service.abstracts.ExamService;
 import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstraction;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mockexam.mockexamservice.service.abstracts.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +17,12 @@ import java.util.List;
 public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> implements ExamService {
 
     private final ExamRepository examRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
-    public ExamServiceImpl(ReadWriteRepository<Exam, Long> readWriteRepository, ExamRepository examRepository) {
+    public ExamServiceImpl(ReadWriteRepository<Exam, Long> readWriteRepository, ExamRepository examRepository, UserService userService) {
         super(readWriteRepository);
         this.examRepository = examRepository;
+        this.userService = userService;
     }
 
     @Transactional(readOnly = true)
@@ -40,10 +38,7 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
 
     @Override
     public void persist(Exam exam, Principal principal) {
-        User user = userRepository.getReferenceById(2L); // TODO: get user from principal
-        if (exam.getType() == null) {
-            exam.setType(Type.PRIVATE);
-        }
+        User user = userService.findById(2L).orElseThrow(); // TODO: get user from principal
         exam.setUser(user);
         examRepository.save(exam);
     }

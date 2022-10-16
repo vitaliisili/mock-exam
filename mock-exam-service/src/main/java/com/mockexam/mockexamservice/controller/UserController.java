@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<String> persistUser(@RequestBody UserDto userDto) {
-        userService.persist(userDto);
+        userService.persist(userMapper.toUser(userDto));
         return ResponseEntity.ok("User has been saved successful");
     }
 

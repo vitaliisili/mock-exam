@@ -2,8 +2,7 @@ package com.mockexam.mockexamservice.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
-import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,14 +10,14 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class QuestionDto {
+public class ExamDto {
 
     private Long id;
     private String title;
-    private String explanation;
-    @JsonProperty("isMultiple")
-    private boolean isMultiple;
-    private Long examId;
-    private List<QuestionAnswerDto> questionAnswers;
+    private String description;
+    @JsonProperty("isPublic")
+    private boolean isPublic;
+    private Long userId;
+    private Set<ExamCategoryDto> examCategories;
 
 }

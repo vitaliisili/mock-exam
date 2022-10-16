@@ -1,6 +1,7 @@
 package com.mockexam.mockexamservice.controller.advice;
 
 import com.mockexam.mockexamservice.controller.response.HttpResponse;
+import com.mockexam.mockexamservice.exception.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,12 @@ public class AdviceController {
     public ResponseEntity<HttpResponse> handleCastNumberFormatException(NumberFormatException exception) {
         log.error("CAST NUMBER FORMAT EXCEPTION MESSAGE: {}", exception.getMessage());
         return createHttpResponse(HttpStatus.BAD_REQUEST, "Value must be a number");
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<HttpResponse> handleBadRequestException(BadRequestException exception) {
+        log.error("BAD REQUEST EXCEPTION MESSAGE: {}", exception.getMessage());
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
