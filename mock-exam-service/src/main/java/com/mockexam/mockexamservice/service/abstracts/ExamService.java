@@ -10,4 +10,5 @@ public interface ExamService extends ReadWriteService<Exam, Long>{
     List<Exam> findAllByUserId(Long id);
     List<Exam> findAllByExamCategoryId(Long id);
     void persist(Exam exam, Principal principal);
+
 }

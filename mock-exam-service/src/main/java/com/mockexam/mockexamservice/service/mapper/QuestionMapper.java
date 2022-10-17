@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = QuestionAnswerMapper.class)
-public abstract class QuestionMapper {
+@Mapper(componentModel = "spring", uses = QuestionAnswerMapper.class, builder = @Builder(disableBuilder = true))
+public abstract class QuestionMapper extends MapperUtil<Question>{
 
     @Autowired
     protected ExamService examService;

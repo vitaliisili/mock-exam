@@ -63,4 +63,5 @@ public class ExamController {
         List<Exam> exams = examService.findAllByExamCategoryId(id);
         return ResponseEntity.ok(examMapper.toExamDtoList(exams));
     }
+
 }

@@ -1,7 +1,6 @@
 package com.mockexam.mockexamservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Set;

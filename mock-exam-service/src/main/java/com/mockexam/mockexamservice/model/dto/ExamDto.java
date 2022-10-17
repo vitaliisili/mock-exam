@@ -17,7 +17,8 @@ public class ExamDto {
     private String description;
     @JsonProperty("isPublic")
     private boolean isPublic;
-    private Long userId;
+//    private Long userId;
+    private String createdAt;
     private Set<ExamCategoryDto> examCategories;
 
 }

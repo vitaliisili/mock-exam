@@ -1,8 +1,6 @@
 package com.mockexam.mockexamservice.model.dto;
 
-import com.mockexam.mockexamservice.model.Role;
 import lombok.*;
-
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,5 +17,6 @@ public class UserDto {
     private String firstName;
     private String secondName;
     private List<RoleDto> roles;
+    private String registeredAt;
 
 }

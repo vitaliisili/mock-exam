@@ -1,39 +1,17 @@
 package com.mockexam.mockexamservice.service.mapper;
 
 import com.mockexam.mockexamservice.model.Exam;
-import com.mockexam.mockexamservice.model.ExamCategory;
 import com.mockexam.mockexamservice.model.dto.ExamDto;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-
+import org.mapstruct.*;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
-public interface ExamMapper {
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
+public abstract class ExamMapper extends MapperUtil<Exam>{
 
-    @Mapping(target = "userId", source = "exam.user.id")
-    ExamDto toExamDto(Exam exam);
-//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    default Exam toExam(ExamDto examDto) {
-        Exam exam =  Exam.builder()
-                .description(examDto.getDescription())
-                .isPublic(examDto.isPublic())
-                .title(examDto.getTitle())
-                .examCategories(examDto.getExamCategories().stream().map(category -> {
-                    ExamCategory examCategory = ExamCategory.builder()
-                            .name(category.getName())
-                            .build();
-                    examCategory.setId(category.getId());
-                    return examCategory;
-                }).collect(Collectors.toSet()))
-                .build();
-        exam.setId(examDto.getId());
-        return exam;
-    }
+    public abstract ExamDto toExamDto(Exam exam);
+    public abstract Exam toExam (ExamDto examDto);
+    public abstract List<ExamDto> toExamDtoList(List<Exam> exams);
+    public abstract Set<Exam> toExamSet(List<ExamDto> examDtoList);
 
-    List<ExamDto> toExamDtoList(List<Exam> exams);
 }

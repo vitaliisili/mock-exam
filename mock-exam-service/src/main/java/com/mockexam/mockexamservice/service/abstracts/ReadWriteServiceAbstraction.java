@@ -41,6 +41,11 @@ public abstract class ReadWriteServiceAbstraction<T, K> implements ReadWriteServ
     }
 
     @Override
+    public void persistAll(Collection<T> entities) {
+        readWriteRepository.saveAll(entities);
+    }
+
+    @Override
     public void update(T entity) {
         readWriteRepository.save(entity);
     }

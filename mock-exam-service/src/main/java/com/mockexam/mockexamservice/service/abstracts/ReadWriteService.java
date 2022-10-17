@@ -10,6 +10,7 @@ public interface ReadWriteService <T, K>{
     List<T> findAll();
     boolean isPresentById(K id);
     void persist(T entity);
+    void persistAll(Collection<T> entities);
     void update(T entity);
     void delete(T entity);
     void deleteById(K id);

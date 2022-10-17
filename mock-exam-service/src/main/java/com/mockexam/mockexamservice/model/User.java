@@ -33,7 +33,8 @@ public class User extends BaseEntity{
     @JoinTable(name = "USERS_ROLE",
             joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private Set<Role> roles = new HashSet<>();
+    @ToString.Exclude
+    private Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
     @ToString.Exclude

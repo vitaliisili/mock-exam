@@ -1,12 +1,13 @@
 package com.mockexam.mockexamservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -19,5 +20,10 @@ import java.util.List;
 public class QuestionCategory extends BaseEntity{
 
     private String name;
+
+    @ManyToMany(cascade = CascadeType.REFRESH, mappedBy = "questionCategories")
+    @JsonIgnore
+    @ToString.Exclude
+    private Set<Question> questions;
 
 }

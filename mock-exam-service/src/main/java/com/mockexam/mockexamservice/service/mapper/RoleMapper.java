@@ -5,8 +5,8 @@ import com.mockexam.mockexamservice.model.dto.RoleDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface RoleMapper {
+public abstract class RoleMapper extends MapperUtil<Role>{
 
-    RoleDto toRoleDto(Role role);
-    Role toRole(RoleDto roleDto);
+    public abstract RoleDto toRoleDto(Role role);
+    public abstract Role toRole(RoleDto roleDto);
 }

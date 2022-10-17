@@ -28,4 +28,11 @@ public class Question extends BaseEntity{
     @ToString.Exclude
     private Set<QuestionAnswer> questionAnswers;
 
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @JoinTable(name = "QUESTION_CATEGORIES",
+            joinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "question_category_id", referencedColumnName = "id"))
+    @ToString.Exclude
+    private Set<QuestionCategory> questionCategories;
+
 }

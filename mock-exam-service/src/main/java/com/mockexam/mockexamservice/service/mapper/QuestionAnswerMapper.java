@@ -4,14 +4,15 @@ import com.mockexam.mockexamservice.exception.BadRequestException;
 import com.mockexam.mockexamservice.model.QuestionAnswer;
 import com.mockexam.mockexamservice.model.dto.QuestionAnswerDto;
 import com.mockexam.mockexamservice.service.abstracts.QuestionService;
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public abstract class QuestionAnswerMapper {
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
+public abstract class QuestionAnswerMapper extends MapperUtil<QuestionAnswer>{
 
     @Autowired
     protected QuestionService questionService;
