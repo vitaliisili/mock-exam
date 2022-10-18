@@ -21,18 +21,20 @@ public abstract class QuestionMapper extends MapperUtil<Question>{
     @Mapping(target = "examId", source = "question.exam.id")
     public abstract QuestionDto toQuestionDto(Question question);
 
-    public Question toQuestion(QuestionDto questionDto) {
-        Question question = Question.builder()
-                .title(questionDto.getTitle())
-                .explanation(questionDto.getExplanation())
-                .isMultiple(questionDto.isMultiple())
-                .exam(examService.findById(questionDto.getExamId()).orElseThrow(() -> new BadRequestException(
-                        String.format("Exam with id %s not found", questionDto.getExamId()))))
-                .questionAnswers(toQuestionAnswerList(questionDto.getQuestionAnswers()))
-                .build();
-        question.setId(questionDto.getId());
-        return question;
-    }
+    public abstract Question toQuestion(QuestionDto questionDto);
+
+//    public Question toQuestion(QuestionDto questionDto) {
+//        Question question = Question.builder()
+//                .title(questionDto.getTitle())
+//                .explanation(questionDto.getExplanation())
+//                .isMultiple(questionDto.isMultiple())
+//                .exam(examService.findById(questionDto.getExamId()).orElseThrow(() -> new BadRequestException(
+//                        String.format("Exam with id %s not found", questionDto.getExamId()))))
+//                .questionAnswers(toQuestionAnswerList(questionDto.getQuestionAnswers()))
+//                .build();
+//        question.setId(questionDto.getId());
+//        return question;
+//    }
 
     public abstract List<QuestionDto> toQuestionDtoList(List<Question> questions);
 

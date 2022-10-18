@@ -35,4 +35,9 @@ public class Question extends BaseEntity{
     @ToString.Exclude
     private Set<QuestionCategory> questionCategories;
 
+
+    public void addQuestionAnswer(QuestionAnswer questionAnswer) {
+        this.questionAnswers.add(questionAnswer);
+        questionAnswer.setQuestion(this);
+    }
 }
