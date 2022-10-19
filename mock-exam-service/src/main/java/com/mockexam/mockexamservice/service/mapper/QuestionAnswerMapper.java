@@ -17,8 +17,8 @@ public abstract class QuestionAnswerMapper extends MapperUtil<QuestionAnswer>{
 
     public static final QuestionAnswerMapper INSTANCE = Mappers.getMapper(QuestionAnswerMapper.class);
 
-    @Autowired
-    protected QuestionService questionService;
+//    @Autowired
+//    protected QuestionService questionService;
 
     @Mapping(target = "questionId", source = "questionAnswer.question.id")
     public abstract QuestionAnswerDto toQuestionAnswerDto(QuestionAnswer questionAnswer);

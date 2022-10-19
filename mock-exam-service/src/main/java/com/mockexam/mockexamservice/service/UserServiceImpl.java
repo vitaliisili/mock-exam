@@ -2,8 +2,6 @@ package com.mockexam.mockexamservice.service;
 
 import com.mockexam.mockexamservice.exception.BadRequestException;
 import com.mockexam.mockexamservice.exception.RoleNotFoundException;
-import com.mockexam.mockexamservice.model.Exam;
-import com.mockexam.mockexamservice.model.ExamCategory;
 import com.mockexam.mockexamservice.model.Role;
 import com.mockexam.mockexamservice.model.User;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
@@ -12,6 +10,7 @@ import com.mockexam.mockexamservice.service.abstracts.ExamCategoryService;
 import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstraction;
 import com.mockexam.mockexamservice.service.abstracts.RoleService;
 import com.mockexam.mockexamservice.service.abstracts.UserService;
+import com.mockexam.mockexamservice.service.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
@@ -24,12 +23,14 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final ExamCategoryService examCategoryService;
+    private final UserMapper userMapper;
 
-    public UserServiceImpl(ReadWriteRepository<User, Long> readWriteRepository, UserRepository userRepository, RoleService roleService, ExamCategoryService examCategoryService) {
+    public UserServiceImpl(ReadWriteRepository<User, Long> readWriteRepository, UserRepository userRepository, RoleService roleService, ExamCategoryService examCategoryService, UserMapper userMapper) {
         super(readWriteRepository);
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.examCategoryService = examCategoryService;
+        this.userMapper = userMapper;
     }
 
     @Transactional(readOnly = true)
@@ -79,6 +80,12 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
             user.setRoles(roles);
         }
         userRepository.save(user);
+    }
+
+    @Override
+    public void update(User entity) {
+        User toUpdate = userRepository.getReferenceById(entity.getId());
+        userRepository.save(userMapper.updateMapping(entity, toUpdate));
     }
 
     @Override

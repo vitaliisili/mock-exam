@@ -27,8 +27,8 @@ public abstract class BaseEntity {
     @Column(name = "modified_at")
     protected Instant modifiedAt;
 
-    @Column
-    @Version
-    protected int version;
+//    @Column
+//    @Version
+//    protected int version;
 }
 

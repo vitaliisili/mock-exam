@@ -3,6 +3,7 @@ package com.mockexam.mockexamservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,20 +25,32 @@ public class Question extends BaseEntity{
     @ToString.Exclude
     private Exam exam;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+//    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, mappedBy = "question")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, mappedBy = "question")
     @ToString.Exclude
-    private Set<QuestionAnswer> questionAnswers;
+    private Set<QuestionAnswer> questionAnswers = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "QUESTION_CATEGORIES",
             joinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "question_category_id", referencedColumnName = "id"))
     @ToString.Exclude
-    private Set<QuestionCategory> questionCategories;
+    private Set<QuestionCategory> questionCategories = new HashSet<>();
 
 
-    public void addQuestionAnswer(QuestionAnswer questionAnswer) {
-        this.questionAnswers.add(questionAnswer);
+    public void addAnswer(QuestionAnswer questionAnswer) {
+        if (questionAnswers.contains(questionAnswer)) {
+            return;
+        }
+        questionAnswers.add(questionAnswer);
         questionAnswer.setQuestion(this);
+    }
+
+    public void removeAnswer(QuestionAnswer questionAnswer) {
+        if (!questionAnswers.contains(questionAnswer)) {
+            return;
+        }
+        questionAnswers.remove(questionAnswer);
+        questionAnswer.setQuestion(null);
     }
 }

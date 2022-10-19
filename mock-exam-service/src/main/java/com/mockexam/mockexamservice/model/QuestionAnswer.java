@@ -18,7 +18,7 @@ public class QuestionAnswer extends BaseEntity{
     private String content;
     private boolean isCorrect;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @ToString.Exclude
     private Question question;

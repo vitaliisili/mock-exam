@@ -48,10 +48,11 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
         examRepository.save(exam);
     }
 
+    @Transactional
     @Override
     public void update(Exam entity) {
-        Exam exam = examRepository.findById(entity.getId()).orElseThrow(() -> new BadRequestException("Exam not found"));
-        examRepository.save(examMapper.updateMapping(entity, exam));
+        Exam toUpdate = examRepository.getReferenceById(entity.getId());
+        examRepository.save(examMapper.updateMapping(entity, toUpdate));
     }
 
 }

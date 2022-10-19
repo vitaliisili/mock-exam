@@ -3,6 +3,8 @@ package com.mockexam.mockexamservice.service.mapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;

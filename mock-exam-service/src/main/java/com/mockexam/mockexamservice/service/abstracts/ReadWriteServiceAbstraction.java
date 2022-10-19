@@ -3,6 +3,7 @@ package com.mockexam.mockexamservice.service.abstracts;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
@@ -37,7 +38,7 @@ public abstract class ReadWriteServiceAbstraction<T, K> implements ReadWriteServ
 
     @Override
     public void persist(T entity) {
-        readWriteRepository.save(entity);
+        readWriteRepository.saveAndFlush(entity);
     }
 
     @Override

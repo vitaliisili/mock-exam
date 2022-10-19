@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +20,6 @@ public class QuestionDto {
     @JsonProperty("isMultiple")
     private boolean isMultiple;
     private Long examId;
-    private List<QuestionAnswerDto> questionAnswers;
+    private Set<QuestionAnswerDto> questionAnswers;
 
 }
