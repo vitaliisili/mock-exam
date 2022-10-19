@@ -11,6 +11,7 @@ import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstractio
 import com.mockexam.mockexamservice.service.abstracts.RoleService;
 import com.mockexam.mockexamservice.service.abstracts.UserService;
 import com.mockexam.mockexamservice.service.mapper.UserMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
@@ -25,12 +26,15 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
     private final ExamCategoryService examCategoryService;
     private final UserMapper userMapper;
 
-    public UserServiceImpl(ReadWriteRepository<User, Long> readWriteRepository, UserRepository userRepository, RoleService roleService, ExamCategoryService examCategoryService, UserMapper userMapper) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(ReadWriteRepository<User, Long> readWriteRepository, UserRepository userRepository, RoleService roleService, ExamCategoryService examCategoryService, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         super(readWriteRepository);
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.examCategoryService = examCategoryService;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
@@ -79,6 +83,8 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
                     .collect(Collectors.toSet());
             user.setRoles(roles);
         }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

@@ -18,12 +18,11 @@ spring:
     show-sql: true
     hibernate.ddl-auto: create
     defer-datasource-initialization: true
-#    properties.hibernate.enable_lazy_load_no_trans: true
-#    properties.hibernate.format_sql: true
-#    properties.hibernate.generate_statistics: false
-#    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-#    properties.hibernate.jdbc.batch_size: 20
-#    properties.hibernate.order_inserts: true
-#    properties.hibernate.order_updates: true
-#    properties.hibernate.jdbc.batch_versioned_data: true
-#    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+
+  main:
+    allow-circular-references: true
+
+jwt:
+  key: "secret"
+  expire: 64000000000
+

@@ -1,6 +1,6 @@
-insert into users (email, username, password, first_name, second_name, created_at, modified_at) values ('demo-admin@email.com', 'demo-admin', 'password', 'Sara', 'Crown', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
-insert into users (email, username, password, first_name, second_name, created_at, modified_at) values ('demo-user@email.com', 'demo-user', 'password', 'Jeremy', 'Brown', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
-insert into users (email, username, password, first_name, second_name, created_at, modified_at) values ('demo-user1@email.com', 'demo-user1', 'password', 'Jeremy', 'Brown', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
+insert into users (email, username, password, first_name, second_name, created_at, modified_at) values ('demo-admin@email.com', 'demo-admin', '{bcrypt}$2a$10$gEIahWZGw7P3d2xkJpCC4OxWO1pEEJbBQGQDt3f4bhra3I.LD2oOe', 'Sara', 'Crown', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
+insert into users (email, username, password, first_name, second_name, created_at, modified_at) values ('demo-user@email.com', 'demo-user', '{bcrypt}$2a$10$gEIahWZGw7P3d2xkJpCC4OxWO1pEEJbBQGQDt3f4bhra3I.LD2oOe', 'Jeremy', 'Brown', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
+insert into users (email, username, password, first_name, second_name, created_at, modified_at) values ('demo-user1@email.com', 'demo-user1', '{bcrypt}$2a$10$gEIahWZGw7P3d2xkJpCC4OxWO1pEEJbBQGQDt3f4bhra3I.LD2oOe', 'Jeremy', 'Brown', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
 
 insert into role (name, created_at, modified_at) values ('ROLE_ADMIN', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
 insert into role (name, created_at, modified_at) values ('ROLE_USER', '2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z');
