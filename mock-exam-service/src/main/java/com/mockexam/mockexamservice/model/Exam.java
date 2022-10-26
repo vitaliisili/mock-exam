@@ -17,6 +17,7 @@ public class Exam extends BaseEntity{
 
     private String title;
     private String description;
+//    private String photoLink; // TODO: add photo
     private boolean isPublic;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)

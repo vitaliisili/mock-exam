@@ -27,11 +27,12 @@ public class DefaultSecurityConfig {
 
     private final CustomRequestFilter requestFilter;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final CorsCustomizer corsCustomizer;
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        corsCustomizer.corsCustomizer(http);
         return http
-                .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/api/auth/**").permitAll()

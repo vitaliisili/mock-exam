@@ -9,22 +9,27 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/exam")
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin(value = "*")
 public class ExamController {
 
     private final ExamService examService;
     private final ExamMapper examMapper;
 
     @GetMapping
-    public ResponseEntity<List<ExamDto>> getAllExams() {
-        List<Exam> exams = examService.findAll();
+    public ResponseEntity<List<ExamDto>> getAllPublicExams(@RequestParam int page,
+                                                           @RequestParam Optional<Integer> size) { //TODO: add method get only public exams
+
+        Iterable<Exam> exams = examService.findAll(page, size.orElse(12));
+
+        System.out.println(examMapper.toExamDtoList(exams));
         return ResponseEntity.ok(examMapper.toExamDtoList(exams));
     }
 
@@ -53,13 +58,19 @@ public class ExamController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<ExamDto>> getAllByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<ExamDto>> getAllByUserId(@PathVariable Long id,
+                                                        @RequestParam int page,
+                                                        @RequestParam Optional<Integer> size) {
+
         List<Exam> exams = examService.findAllByUserId(id);
         return ResponseEntity.ok(examMapper.toExamDtoList(exams));
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<List<ExamDto>> getAllByExamCategoryId(@PathVariable Long id) {
+    public ResponseEntity<List<ExamDto>> getAllByExamCategoryId(@PathVariable Long id,
+                                                                @RequestParam int page,
+                                                                @RequestParam Optional<Integer> size) {
+
         List<Exam> exams = examService.findAllByExamCategoryId(id);
         return ResponseEntity.ok(examMapper.toExamDtoList(exams));
     }

@@ -34,7 +34,7 @@ public class QuestionServiceImpl extends ReadWriteServiceAbstraction<Question, L
     @Transactional
     @Override
     public void update(Question entity) {
-        Question toUpdate = questionRepository.getReferenceById(entity.getId());
+        Question toUpdate = questionRepository.findById(entity.getId()).orElseThrow(); //todo: add logic
 
         toUpdate.setId(entity.getId());
         toUpdate.setExam(entity.getExam());

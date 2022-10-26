@@ -1,5 +1,6 @@
 package com.mockexam.mockexamservice.security;
 
+import com.mockexam.mockexamservice.exception.UserAuthenticationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,7 @@ public class CustomRequestFilter extends OncePerRequestFilter {
             }
         }catch (Exception e) {
             log.error("Authentication User Error: {}", e.getMessage());
+            throw new UserAuthenticationException(e.getMessage());
         }
 
         filterChain.doFilter(request, response);

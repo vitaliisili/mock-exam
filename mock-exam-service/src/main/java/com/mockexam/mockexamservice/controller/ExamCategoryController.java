@@ -22,7 +22,7 @@ public class ExamCategoryController {
 
     @GetMapping
     public ResponseEntity<List<ExamCategoryDto>> getAllExamCategories() {
-        List<ExamCategory> examCategories = examCategoryService.findAll();
+        Iterable<ExamCategory> examCategories = examCategoryService.findAll();
         return ResponseEntity.ok(examCategoryMapper.toExamCategoryDtoList(examCategories));
     }
 

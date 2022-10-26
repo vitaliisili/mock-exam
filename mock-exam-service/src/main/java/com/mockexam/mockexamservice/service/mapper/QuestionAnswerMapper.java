@@ -37,6 +37,6 @@ public abstract class QuestionAnswerMapper extends MapperUtil<QuestionAnswer>{
 //        return questionAnswer;
 //    }
 
-    public abstract List<QuestionAnswerDto> questionAnswerDtoList(List<QuestionAnswer> questionAnswers);
+    public abstract List<QuestionAnswerDto> questionAnswerDtoList(Iterable<QuestionAnswer> questionAnswers);
 
 }

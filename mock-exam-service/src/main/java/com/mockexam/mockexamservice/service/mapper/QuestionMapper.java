@@ -41,6 +41,6 @@ public abstract class QuestionMapper extends MapperUtil<Question>{
 
     public abstract QuestionAnswer toQuestionAnswer(QuestionAnswerDto questionAnswerDto);
 
-    public abstract List<QuestionDto> toQuestionDtoList(List<Question> questions);
+    public abstract List<QuestionDto> toQuestionDtoList(Iterable<Question> questions);
 
 }

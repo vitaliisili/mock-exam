@@ -15,6 +15,6 @@ public abstract class UserMapper extends MapperUtil<User>{
     public abstract User toUser(UserDto userDto);
     public abstract User toUser(SingUpRequest singUpRequest);
 
-    public abstract List<UserDto> toUserListDto(List<User> users);
+    public abstract List<UserDto> toUserListDto(Iterable<User> users);
 
 }

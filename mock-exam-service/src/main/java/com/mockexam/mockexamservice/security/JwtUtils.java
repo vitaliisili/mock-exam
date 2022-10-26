@@ -1,11 +1,14 @@
 package com.mockexam.mockexamservice.security;
 
+import com.mockexam.mockexamservice.exception.UserAuthenticationException;
+import com.mockexam.mockexamservice.model.User;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +25,11 @@ public class JwtUtils {
     private long JWT_TOKEN_VALIDITY;
 
     private final CustomUserDetailService userDetailService;
+    private final PasswordEncoder passwordEncoder;
 
-    public JwtUtils(CustomUserDetailService userDetailService) {
+    public JwtUtils(CustomUserDetailService userDetailService, PasswordEncoder passwordEncoder) {
         this.userDetailService = userDetailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -71,6 +76,7 @@ public class JwtUtils {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
             log.error("Cannot authenticate user: {}", e.getMessage());
+            throw new UserAuthenticationException(e.getMessage());
         }
     }
 
@@ -84,6 +90,16 @@ public class JwtUtils {
                 .compact();
 
         return new JwtResponse(token);
+    }
+
+    public JwtResponse generateJwtLoginToken(String username, String password) {
+        UserDetails user = userDetailService.loadUserByUsername(username);
+        boolean checkPassword = passwordEncoder.matches(password, user.getPassword());
+        if (checkPassword) {
+            return generateJwtToken(username);
+        }else {
+            throw new UserAuthenticationException("Incorrect Login or Password");
+        }
     }
 
 }

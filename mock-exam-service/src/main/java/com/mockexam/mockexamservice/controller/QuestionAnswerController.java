@@ -24,7 +24,7 @@ public class QuestionAnswerController {
 
     @GetMapping
     public ResponseEntity<List<QuestionAnswerDto>> getAllQuestionAnswers() {
-        List<QuestionAnswer> questionAnswers = questionAnswerService.findAll();
+        Iterable<QuestionAnswer> questionAnswers = questionAnswerService.findAll();
         return ResponseEntity.ok(questionAnswerMapper.questionAnswerDtoList(questionAnswers));
     }
 

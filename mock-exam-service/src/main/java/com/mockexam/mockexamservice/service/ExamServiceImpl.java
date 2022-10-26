@@ -1,6 +1,6 @@
 package com.mockexam.mockexamservice.service;
 
-import com.mockexam.mockexamservice.exception.BadRequestException;
+import com.mockexam.mockexamservice.exception.UserNotFoundException;
 import com.mockexam.mockexamservice.model.Exam;
 import com.mockexam.mockexamservice.model.User;
 import com.mockexam.mockexamservice.repository.ExamRepository;
@@ -9,11 +9,13 @@ import com.mockexam.mockexamservice.service.abstracts.ExamService;
 import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstraction;
 import com.mockexam.mockexamservice.service.abstracts.UserService;
 import com.mockexam.mockexamservice.service.mapper.ExamMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> implements ExamService {
@@ -48,10 +50,20 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
         examRepository.save(exam);
     }
 
+    @Override
+    public Iterable<Exam> findAll(int page, int size) {
+        return examRepository
+                .findAll(PageRequest.of(page, size))
+                .filter(Exam::isPublic)
+                .stream()
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public void update(Exam entity) {
-        Exam toUpdate = examRepository.getReferenceById(entity.getId());
+        Exam toUpdate = examRepository.findById(entity.getId()).orElseThrow(() ->
+                new UserNotFoundException(String.format("Exam with %s not found", entity.getId())));
         examRepository.save(examMapper.updateMapping(entity, toUpdate));
     }
 

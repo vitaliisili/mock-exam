@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<User> users = userService.findAll();
+        Iterable<User> users = userService.findAll();
         return ResponseEntity.ok(userMapper.toUserListDto(users));
     }
 
@@ -52,6 +54,13 @@ public class UserController {
     public ResponseEntity<String> updateUser(@RequestBody User user) {
         userService.update(user);
         return ResponseEntity.ok("User has been updated successful");
+    }
+
+    @GetMapping("/principal")
+    public ResponseEntity<UserDto> getPrincipal(Principal principal) {
+        User user = userService.findByUsername(principal.getName()).orElseThrow(); //Todo: throw error
+        log.info("Turn {}", user.getFirstName());
+        return ResponseEntity.ok(userMapper.toUserDto(user));
     }
 
 }

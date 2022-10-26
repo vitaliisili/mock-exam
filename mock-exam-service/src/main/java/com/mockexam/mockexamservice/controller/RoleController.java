@@ -1,7 +1,9 @@
 package com.mockexam.mockexamservice.controller;
 
 import com.mockexam.mockexamservice.model.Role;
+import com.mockexam.mockexamservice.model.dto.RoleDto;
 import com.mockexam.mockexamservice.service.abstracts.RoleService;
+import com.mockexam.mockexamservice.service.mapper.RoleMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,12 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+    private final RoleMapper roleMapper;
 
     @GetMapping
-    public ResponseEntity<List<Role>> getAllRoles() {
-        List<Role> roles = roleService.findAll();
-        return ResponseEntity.ok(roles);
+    public ResponseEntity<List<RoleDto>> getAllRoles() {
+        Iterable<Role> roles = roleService.findAll();
+        return ResponseEntity.ok(roleMapper.toRoleDtoList(roles));
     }
 
     @GetMapping("{id}")

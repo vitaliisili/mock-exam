@@ -20,7 +20,7 @@ public class QuestionController {
 
     @GetMapping
     public ResponseEntity<List<QuestionDto>> getAllQuestions() {
-        List<Question> questions = questionService.findAll();
+        Iterable<Question> questions = questionService.findAll();
         return ResponseEntity.ok(questionMapper.toQuestionDtoList(questions));
     }
 

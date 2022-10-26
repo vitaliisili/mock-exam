@@ -90,7 +90,7 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
 
     @Override
     public void update(User entity) {
-        User toUpdate = userRepository.getReferenceById(entity.getId());
+        User toUpdate = userRepository.findById(entity.getId()).orElseThrow(); // TODO: add logic
         userRepository.save(userMapper.updateMapping(entity, toUpdate));
     }
 

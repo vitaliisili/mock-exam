@@ -24,7 +24,7 @@ public class ExamCategoryServiceImpl extends ReadWriteServiceAbstraction<ExamCat
     @Transactional
     @Override
     public void update(ExamCategory entity) {
-       ExamCategory toUpdate = examCategoryRepository.getReferenceById(entity.getId());
+       ExamCategory toUpdate = examCategoryRepository.findById(entity.getId()).orElseThrow(); // todo: add logic
        examCategoryRepository.save(examCategoryMapper.updateMapping(entity, toUpdate));
     }
 }

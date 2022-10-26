@@ -14,7 +14,7 @@ public abstract class ExamMapper extends MapperUtil<Exam>{
 
     public abstract ExamDto toExamDto(Exam exam);
     public abstract Exam toExam (ExamDto examDto);
-    public abstract List<ExamDto> toExamDtoList(List<Exam> exams);
+    public abstract List<ExamDto> toExamDtoList(Iterable<Exam> exams);
     public abstract Set<Exam> toExamSet(List<ExamDto> examDtoList);
 
 }
