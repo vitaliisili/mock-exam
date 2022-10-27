@@ -8,6 +8,8 @@ export const API_POST_SIGN_UP = `${HOST}/auth/sign-up`
 export const API_POST_SIGN_IN = `${HOST}/auth/sign-in`
 
 export const API_GET_ALL_PUBLIC_EXAMS = `${HOST}/exam`
+export const API_GET_ALL_EXAMS_BY_USER_ID = `${HOST}/exam/user`
+export const API_GET_EXAM_BY_ID = `${HOST}/exam`
 
 
 

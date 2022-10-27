@@ -14,12 +14,13 @@ const NavBarWrapper = styled.div`
   background-color: #3C3F41;
   width: 100%;
   height: 60px;
-  position: absolute;
+  position: fixed;
   top: 0;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
   color: #FFF;
+  z-index: 1000;
 `
 
 const NavBarLogo = styled.div`
@@ -43,8 +44,8 @@ const NavBarMenuItem = styled.div`
   font-weight: bold;
   height: 100%;
   .menu-icon {
-    font-size: 25px;
-    margin-right: 8px;
+    font-size: 20px;
+    margin-right: 7px;
   }
   .menu-link {
     text-decoration: none;
@@ -59,13 +60,16 @@ const NavBarMenuItem = styled.div`
     :hover {
       background-color: #525659;
       color: #C4C4C4;
+      .menu-icon {
+        color: #C4607E;
+      }
     }
   }
   .menu-link:first-child {
     border-left: 1px solid #525659;
   }
   .menu-text {
-    margin-bottom: -3px;
+    font-size: 15px;
   }
 `
 

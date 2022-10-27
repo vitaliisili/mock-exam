@@ -35,6 +35,7 @@ public class ExamController {
 
     @GetMapping("{id}")
     public ResponseEntity<ExamDto> getExamById(@PathVariable Long id) {
+        log.info("EXAM REQUEST WITH ID: {}", id);
         Exam exam = examService.findById(id).orElseThrow(() -> new BadRequestException("Exam not found"));
         return ResponseEntity.ok(examMapper.toExamDto(exam));
     }
@@ -58,9 +59,7 @@ public class ExamController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<ExamDto>> getAllByUserId(@PathVariable Long id,
-                                                        @RequestParam int page,
-                                                        @RequestParam Optional<Integer> size) {
+    public ResponseEntity<List<ExamDto>> getAllByUserId(@PathVariable Long id) {
 
         List<Exam> exams = examService.findAllByUserId(id);
         return ResponseEntity.ok(examMapper.toExamDtoList(exams));

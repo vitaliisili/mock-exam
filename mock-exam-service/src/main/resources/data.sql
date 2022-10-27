@@ -12,17 +12,32 @@ insert into users_role(users_id, role_id) values (1, 3);
 insert into users_role(users_id, role_id) values (2, 2);
 insert into users_role(users_id, role_id) values (3, 3);
 
-insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Pivotal Spring Boot Certification Exam Mock', 'This is mock exam for spring boot pivotal certification', true, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Pivotal Spring Boot Certification Exam Mock', 'This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test', true, 1);
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 8 Certification Mock test', 'This Java 8 certification mock test', false, 1);
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
-
+-- delete start
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
+-- delete end
 insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Mock Exam');
 insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Spring Boot');
 insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Spring Framework');
+insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Java');
+insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Math');
+insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Spring');
+insert into exam_category(created_at, modified_at, name) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Computer');
 
 insert into exam_categories(exam_id, exam_category_id) values (1, 1);
 insert into exam_categories(exam_id, exam_category_id) values (1, 2);
 insert into exam_categories(exam_id, exam_category_id) values (1, 3);
+insert into exam_categories(exam_id, exam_category_id) values (2, 4);
+insert into exam_categories(exam_id, exam_category_id) values (2, 5);
+insert into exam_categories(exam_id, exam_category_id) values (2, 6);
+insert into exam_categories(exam_id, exam_category_id) values (2, 7);
 
 insert into question(created_at, modified_at, exam_id, title, explanation, is_multiple) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 1, 'What is Spring boot ?', 'Spring boot is framework', true);
 insert into question(created_at, modified_at, exam_id, title, explanation, is_multiple) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 1, 'What is application.properties ?', 'application.properties is configuration file', false);

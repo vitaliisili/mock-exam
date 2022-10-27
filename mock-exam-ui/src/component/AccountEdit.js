@@ -6,7 +6,6 @@ import {API_GET_CURRENT_USER} from "../constant/ApiUrl";
 import SideBar from "./SideBar";
 import AccountProfile from "./AccountProfile";
 import "../fonts/sf/SF-Pro-Display-Regular.ttf"
-import {useEffect} from "react";
 
 const AccountWrapper = styled.div`
   margin-top: 60px;
@@ -19,14 +18,10 @@ const AccountContent = styled.div`
   padding: 20px;
 `
 
-const AccountProfileWrapper = styled.div`
-  border-radius: 5px;
-  -webkit-box-shadow: 0 0 11px -6px rgba(60,63,65,0.62);
-  -moz-box-shadow: 0 0 11px -6px rgba(60,63,65,0.62);
-  box-shadow: 0 0 11px -6px rgba(60,63,65,0.62);
-`
 
-const Account = () => {
+const AccountEdit = () => {
+
+    const {data: user, isPending, error} = useFetchData(API_GET_CURRENT_USER)
 
     return (
         <div>
@@ -34,14 +29,12 @@ const Account = () => {
             <AccountWrapper>
                 <SideBar/>
                 <AccountContent>
-                    <AccountProfileWrapper>
-                        <AccountProfile/>
-                    </AccountProfileWrapper>
+
                 </AccountContent>
             </AccountWrapper>
         </div>
     )
 }
 
-export default Account
+export default AccountEdit
 

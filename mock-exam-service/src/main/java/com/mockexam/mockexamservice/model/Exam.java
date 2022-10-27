@@ -16,6 +16,8 @@ import java.util.Set;
 public class Exam extends BaseEntity{
 
     private String title;
+
+    @Column(length = 2048)
     private String description;
 //    private String photoLink; // TODO: add photo
     private boolean isPublic;

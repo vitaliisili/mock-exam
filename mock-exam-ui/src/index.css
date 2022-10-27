@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+html {
+  background-color: #F7F8FA;
+}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -125,7 +130,7 @@ html {
  */
 
 a:focus {
-  outline: thin dotted;
+  outline: none;
 }
 
 /**
@@ -287,3 +292,20 @@ textarea {
   resize: vertical;
 }
 
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background: #FFF;
+  border-left: 1px solid #F9F9F9;
+  border-radius: 0 10px 10px 10px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #5F6568;
+  border-radius: 20px;
+}

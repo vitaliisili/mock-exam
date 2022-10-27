@@ -26,7 +26,7 @@ const Icon = styled.div`
 const Input = styled.input`
   padding: 4px 5px;
   height: 22px;
-  width: 260px;
+  width: 200px;
   border: none;
   background-color: #F0F0F0;
 `
@@ -61,7 +61,7 @@ const NavBarSearch = () => {
             <Input onChange={(e) => setSearchText(e.target.value)}
                    value={searchText}
                    type="text"
-                   placeholder="Search exams "/>
+                   placeholder="What are you looking for?"/>
             <SearchBtn onClick={searchHandler}>Search</SearchBtn>
         </Wrapper>
     )

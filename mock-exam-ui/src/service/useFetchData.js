@@ -25,7 +25,7 @@ const useFetchData = (url) => {
         })
     }, [url])
 
-    console.log(data)
+
     return {data, isPending, error}
 }
 

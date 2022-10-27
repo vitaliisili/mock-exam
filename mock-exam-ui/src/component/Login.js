@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import {API_POST_SIGN_IN} from "../constant/ApiUrl";
+import {API_GET_CURRENT_USER, API_POST_SIGN_IN} from "../constant/ApiUrl";
 import axios from "axios";
-import {setCookie} from "../service/cookies-service";
+import {getCookie, setCookie} from "../service/cookies-service";
 import {Link, useNavigate} from "react-router-dom";
 import "../fonts/sf/SF-Pro-Display-Bold.ttf"
 import "../fonts/sf/SF-Pro-Display-Regular.ttf"
+import useFetchData from "../service/useFetchData";
 
 const LoginWrapper = styled.div`
   width: 100%;
@@ -17,13 +18,16 @@ const LoginForm = styled.form`
   flex-direction: column;
   padding: 80px;
   font-family: SF-Pro-Display-Regular, sans-serif;
+
   .login-form-link {
     text-decoration: none;
     color: #5CB5CB;
   }
+
   .login-form-link:hover {
     color: #56A9BE;
   }
+
   .login-password-recovery {
     align-self: end;
     margin-top: 20px;
@@ -33,15 +37,18 @@ const LoginForm = styled.form`
 const LoginInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
   label {
     font-size: 20px;
     margin-top: 40px;
   }
+
   input {
     margin-top: 15px;
     padding: 12px 10px;
     border: 1px solid #C8C8C8;
   }
+
   input:hover {
     background-color: #F6F6F6;
   }
@@ -63,6 +70,7 @@ const LoginButton = styled.button`
   color: #FFFFFF;
   font-weight: bolder;
   font-family: SF-Pro-Display-Bold, sans-serif;
+
   :hover {
     background-color: #56A9BE;
   }
@@ -82,12 +90,25 @@ const Login = () => {
             password
         }).then(res => {
             setCookie("token", res.data.token)
-            navigate('/account')
+            saveCurrentUserLocal()
         }).catch(error => {
             console.log(error) //todo: set error data
         })
+    }
 
-
+    const saveCurrentUserLocal = () => {
+        axios.get(API_GET_CURRENT_USER, {
+            headers: {
+                "Authorization": `Bearer ${getCookie("token")}`
+            }
+        })
+            .then(res => {
+                localStorage.setItem("user", JSON.stringify(res.data))
+                navigate('/account')
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     return (
