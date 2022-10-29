@@ -16,6 +16,6 @@ public abstract class ExamCategoryMapper extends MapperUtil<ExamCategory>{
     public abstract ExamCategoryDto toExamCategoryDto(ExamCategory examCategory);
     public abstract ExamCategory toExamCategory(ExamCategoryDto examCategoryDto);
     public abstract List<ExamCategoryDto> toExamCategoryDtoList(Iterable<ExamCategory> examCategories);
-    public abstract Set<ExamCategory> toExamCategorySet(List<ExamCategoryDto> examCategoryDtoList);
+    public abstract Set<ExamCategory> toExamCategorySet(Iterable<ExamCategoryDto> examCategoryDtoList);
 
 }

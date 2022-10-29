@@ -41,9 +41,9 @@ public class ExamController {
     }
 
     @PostMapping
-    public ResponseEntity<String> persistExam(@RequestBody ExamDto examDto, Principal principal) {
-        examService.persist(examMapper.toExam(examDto), principal);
-        return ResponseEntity.ok("Exam has been saved successful");
+    public ResponseEntity<ExamDto> persistExam(@RequestBody ExamDto examDto, Principal principal) {
+        Exam exam = examService.persist(examMapper.toExam(examDto), principal);
+        return ResponseEntity.ok(examMapper.toExamDto(exam));
     }
 
     @DeleteMapping("/{id}")

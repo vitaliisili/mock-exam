@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -50,10 +52,11 @@ public class ExamCategoryController {
         return ResponseEntity.ok("ExamCategory has been updated successful");
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<Set<ExamCategory>> get() {
-        List<ExamCategoryDto> examCategoryDtos = examCategoryMapper.toExamCategoryDtoList(examCategoryService.findAll());
+    @GetMapping("/principal")
+    public ResponseEntity<List<ExamCategoryDto>> getAllByCurrentUser(Principal principal) {
+        List<ExamCategoryDto> examCategoryDtoList =
+                examCategoryMapper.toExamCategoryDtoList(examCategoryService.findAllByCurrentUser(principal.getName()));
 
-        return ResponseEntity.ok(examCategoryMapper.toExamCategorySet(examCategoryDtos));
+        return ResponseEntity.ok(examCategoryDtoList);
     }
 }

@@ -23,16 +23,16 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
 
     private final UserRepository userRepository;
     private final RoleService roleService;
-    private final ExamCategoryService examCategoryService;
+//    private final ExamCategoryService examCategoryService;
     private final UserMapper userMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(ReadWriteRepository<User, Long> readWriteRepository, UserRepository userRepository, RoleService roleService, ExamCategoryService examCategoryService, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(ReadWriteRepository<User, Long> readWriteRepository, UserRepository userRepository, RoleService roleService, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         super(readWriteRepository);
         this.userRepository = userRepository;
         this.roleService = roleService;
-        this.examCategoryService = examCategoryService;
+//        this.examCategoryService = examCategoryService;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }

@@ -2,6 +2,7 @@
 
 html {
   background-color: #F7F8FA;
+  box-sizing: border-box;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -20,7 +21,6 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
   /*vertical-align: baseline;*/
 }
@@ -47,11 +47,6 @@ blockquote, q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
 
 table {
   border-collapse: collapse;
@@ -306,6 +301,6 @@ body::-webkit-scrollbar-track {
   border-radius: 0 10px 10px 10px;
 }
 body::-webkit-scrollbar-thumb {
-  background-color: #5F6568;
-  border-radius: 20px;
+  background-color: #3C3F41;
+  /*border-radius: 20px;*/
 }

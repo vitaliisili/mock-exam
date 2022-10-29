@@ -78,7 +78,8 @@ const ExamCard = styled.div`
     background-color: #5F6568;
     color: #F3F3F3;
     padding: 15px 10px 5px 10px;
-    line-height: 22px;
+    line-height: 24px;
+    text-align: center;
 
     .card-rank {
       font-weight: lighter;
@@ -103,7 +104,7 @@ const ExamCard = styled.div`
 
   :hover {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-
+    background-color: #E9EAEC;
     .title {
       color: #C49BA7;
     }
@@ -116,14 +117,14 @@ const ExamCard = styled.div`
 
 const CardDescription = styled.div`
 
-  padding: 10px 10px;
-  font-family: "Roboto", sans-serif;
+  padding: 20px 10px 10px 10px;
   font-weight: bold;
+  color: #7B8185;
 
   p {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 66px;
+    height: 66px;
     line-height: 17px;
   }
   

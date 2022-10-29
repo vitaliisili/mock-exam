@@ -2,19 +2,22 @@ package com.mockexam.mockexamservice.service;
 
 import com.mockexam.mockexamservice.exception.UserNotFoundException;
 import com.mockexam.mockexamservice.model.Exam;
+import com.mockexam.mockexamservice.model.ExamCategory;
 import com.mockexam.mockexamservice.model.User;
 import com.mockexam.mockexamservice.repository.ExamRepository;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
+import com.mockexam.mockexamservice.service.abstracts.ExamCategoryService;
 import com.mockexam.mockexamservice.service.abstracts.ExamService;
 import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstraction;
 import com.mockexam.mockexamservice.service.abstracts.UserService;
 import com.mockexam.mockexamservice.service.mapper.ExamMapper;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,13 +26,15 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
     private final ExamRepository examRepository;
     private final UserService userService;
     private final ExamMapper examMapper;
+    private final ExamCategoryService examCategoryService;
 
 
-    public ExamServiceImpl(ReadWriteRepository<Exam, Long> readWriteRepository, ExamRepository examRepository, UserService userService, ExamMapper examMapper) {
+    public ExamServiceImpl(ReadWriteRepository<Exam, Long> readWriteRepository, ExamRepository examRepository, UserService userService, ExamMapper examMapper, ExamCategoryService examCategoryService) {
         super(readWriteRepository);
         this.examRepository = examRepository;
         this.userService = userService;
         this.examMapper = examMapper;
+        this.examCategoryService = examCategoryService;
     }
 
     @Transactional(readOnly = true)
@@ -43,13 +48,25 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
         return examRepository.findAllByExamCategoryId(id);
     }
 
+    @Transactional
     @Override
-    public void persist(Exam exam, Principal principal) {
-        User user = userService.findById(2L).orElseThrow(); // TODO: get user from principal
+    public Exam persist(Exam exam, Principal principal) {
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() ->
+                new UserNotFoundException(String.format("User with username %s not found", principal.getName())));
+
         exam.setUser(user);
+//        Set<ExamCategory> examCategories = exam.getExamCategories();
+
+        exam.getExamCategories().forEach(category -> {
+            if (category.getId() == null) {
+                examCategoryService.persist(category);
+            }
+        });
         examRepository.save(exam);
+        return exam;
     }
 
+    @Transactional
     @Override
     public Iterable<Exam> findAll(int page, int size) {
         return examRepository

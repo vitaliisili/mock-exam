@@ -3,6 +3,7 @@ package com.mockexam.mockexamservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,16 +28,21 @@ public class Exam extends BaseEntity{
     @ToString.Exclude
     private User user;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "EXAM_CATEGORIES",
             joinColumns = {@JoinColumn(name = "exam_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "exam_category_id", referencedColumnName = "id")})
     @ToString.Exclude
-    private Set<ExamCategory> examCategories;
+    private Set<ExamCategory> examCategories = new HashSet<>();
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "exam")
     @ToString.Exclude
     @JsonIgnore
-    private Set<Question> questions;
+    private Set<Question> questions = new HashSet<>();
 
+    public void addExamCategory(ExamCategory examCategory) {
+        this.examCategories.add(examCategory);
+        System.out.println("Add Category exam id: " + this.getId());
+        examCategory.getExams().add(this);
+    }
 }

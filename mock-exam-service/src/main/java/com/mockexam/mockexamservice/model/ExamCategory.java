@@ -3,6 +3,7 @@ package com.mockexam.mockexamservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,9 +18,9 @@ public class ExamCategory extends BaseEntity{
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH}, mappedBy = "examCategories")
+    @ManyToMany(cascade = {CascadeType.REFRESH}, mappedBy = "examCategories", fetch = FetchType.LAZY)
     @ToString.Exclude
     @JsonIgnore
-    private Set<Exam> exams;
+    private Set<Exam> exams = new HashSet<>();
 
 }
