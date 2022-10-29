@@ -46,7 +46,7 @@ const AddExamButton = styled.button`
   }
   :hover {
     background-color: #54595C;
-    color: #81C891;
+    color: #bcded0;
   }
 `
 
@@ -106,7 +106,7 @@ const ExamCard = styled.div`
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     background-color: #E9EAEC;
     .title {
-      color: #C49BA7;
+      color: #bcded0;
     }
 
     .card-rank {
@@ -119,7 +119,8 @@ const CardDescription = styled.div`
 
   padding: 20px 10px 10px 10px;
   font-weight: bold;
-  color: #7B8185;
+  color: #656A6D;
+  font-size: 15px;
 
   p {
     overflow: hidden;

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import styled from "styled-components";
 import Profile from "../image/profile.png"
-import useFetchData from "../service/useFetchData";
-import {API_GET_CURRENT_USER} from "../constant/ApiUrl";
 import "../fonts/sf/SF-Pro-Display-Bold.ttf"
 import {VscAccount} from "react-icons/vsc";
 import {Link} from "react-router-dom";
@@ -92,7 +90,6 @@ const SideMenu = styled.div`
 
 const SideBar = () => {
 
-    // const {data: user, isPending, error} = useFetchData(API_GET_CURRENT_USER)
     const user = JSON.parse(localStorage.getItem("user"))
 
     return (

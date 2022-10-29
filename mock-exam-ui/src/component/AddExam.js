@@ -49,10 +49,11 @@ const Form = styled.form`
     flex-direction: column;
     color: #8F9091;
   }
-  
+
   .section-wrapper {
     margin-top: 40px;
-    text-shadow: 0 4px 3px rgba(0,0,0,0.1), 0 8px 10px rgba(0,0,0,0.1), 0 18px 17px rgba(0,0,0,0.1);
+    text-shadow: 0 4px 3px rgba(0, 0, 0, 0.1), 0 8px 10px rgba(0, 0, 0, 0.1), 0 18px 17px rgba(0, 0, 0, 0.1);
+
     :first-child {
       margin-top: 0;
     }
@@ -116,7 +117,7 @@ const Form = styled.form`
     border: 1px solid #CBCBCD;
     border-radius: 4px;
     color: #4C4C4D;
-    height: 20px;
+    height: 24px;
 
     ::placeholder {
       color: #8F9091;
@@ -129,7 +130,7 @@ const Form = styled.form`
   }
 
   .input-icon-wrapper {
-    background-color: #5EC8A1;
+    background-color: #7fe7b9;
     position: absolute;
     right: 23px;
     top: 0;
@@ -147,22 +148,23 @@ const Form = styled.form`
     background-color: #C86671;
     right: 0;
   }
-  
+
   .radio-access-wrapper {
     margin-top: 15px;
     display: flex;
-    
+
   }
-  
+
   .check-box {
     display: flex;
     margin-left: 20px;
     cursor: pointer;
+
     :first-child {
       margin-left: 0;
     }
   }
-  
+
   .radio-box {
     width: 14px;
     height: 14px;
@@ -172,7 +174,7 @@ const Form = styled.form`
     position: relative;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
-  
+
   .radio-box-active {
     :after {
       content: "";
@@ -184,17 +186,17 @@ const Form = styled.form`
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      
+
     }
   }
-  
+
   .radio-text {
     margin-left: 5px;
     font-weight: bolder;
     color: #5F6568;
     font-size: 16px;
   }
-  
+
   .add-question-btn {
     margin-top: 40px;
     padding: 15px 25px;
@@ -209,16 +211,14 @@ const Form = styled.form`
     border-radius: 3px;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
-    
+
     .question-btn-text {
       margin-left: 10px;
     }
-    
+
     :hover {
       background-color: #4C5153;
-      .question-btn-icon {
-        color: #82C1AE;
-      }
+      color: #bcded0;
     }
   }
 `

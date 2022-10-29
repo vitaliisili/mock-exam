@@ -10,11 +10,11 @@ import AccountEdit from "./component/AccountEdit";
 import PersonalExams from "./component/PersonalExams";
 import Exam from "./component/Exam";
 import AddExam from "./component/AddExam";
+import ExamAttempt from "./component/ExamAttempt";
 
 const Root = styled.div`
   width: 100%;
-  //height: 100%;
-  color: #3C3F41;
+  color: #5F6568;
   background-color: #F7F8FA;
 `
 
@@ -29,6 +29,7 @@ const App = () => {
                     <Route  path='/exam/:id' element={<Exam/>}/>
                     <Route path="/personal-exams" element={<PersonalExams/>}/>
                     <Route path="/add-exam" element={<AddExam/>}/>
+                    <Route path="/exam-attempt/:id" element={<ExamAttempt/>}/>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/account" element={<Account/>}/>
                     <Route path="/account-edit" element={<AccountEdit/>}/>

@@ -304,3 +304,9 @@ body::-webkit-scrollbar-thumb {
   background-color: #3C3F41;
   /*border-radius: 20px;*/
 }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
