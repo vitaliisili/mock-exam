@@ -16,11 +16,12 @@ const NavBarWrapper = styled.div`
   height: 60px;
   position: fixed;
   top: 0;
-  display: inline-flex;
+  left: 0;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   color: #FFF;
-  z-index: 1000;
+  z-index: 100;
 `
 
 const NavBarLogo = styled.div`

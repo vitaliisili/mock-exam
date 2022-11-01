@@ -8,13 +8,13 @@ import { CgLoadbarDoc } from "react-icons/cg";
 import { VscSettingsGear } from "react-icons/vsc";
 
 const SideMenuWrapper = styled.div`
-  background-color: #3C3F41;
+  background-color: ${({theme}) => theme.colors.backgroundDark};
   height: 100vh;
   width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #FFF;
+  color: ${({theme}) => theme.colors.fontLight};
   padding-top: 40px;
   position: fixed;
   left: 0;

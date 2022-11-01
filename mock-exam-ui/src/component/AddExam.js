@@ -36,7 +36,8 @@ const FormWrapper = styled.div`
 const Title = styled.h1`
   font-weight: bolder;
   font-size: 25px;
-  background-color: #EFF0F2;
+  background-color: #5F6568;
+  color: white;
   padding: 20px;
   text-shadow: 0 4px 3px rgba(0,0,0,0.1), 0 8px 10px rgba(0,0,0,0.1), 0 18px 17px rgba(0,0,0,0.1);
 `
