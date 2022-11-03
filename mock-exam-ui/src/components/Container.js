@@ -1,12 +1,15 @@
 import * as React from 'react';
 import styled from "styled-components";
-import NavBar from "../component/NavBar";
-import SideBar from "../component/SideBar";
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
 import PageContent from "./PageContent";
 
 const StyleContainer = styled.div`
-  padding-top: 60px;
-  padding-left: 200px;
+  padding-top: ${({theme}) => theme.size.navbarHeight};
+  padding-left: ${({theme}) => theme.size.sidebarWidth};
+  display: flex;
+  justify-content: center;
+  
 `
 
 const Container = ({ children }) => {

@@ -55,8 +55,6 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
                 new UserNotFoundException(String.format("User with username %s not found", principal.getName())));
 
         exam.setUser(user);
-//        Set<ExamCategory> examCategories = exam.getExamCategories();
-
         exam.getExamCategories().forEach(category -> {
             if (category.getId() == null) {
                 examCategoryService.persist(category);

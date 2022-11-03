@@ -6,7 +6,6 @@ const HomeWrapper = styled.div`
 `
 
 const HomeInfo = styled.div`
-  background-color: blue;
   width: 100%;
   height: 100%;
 `

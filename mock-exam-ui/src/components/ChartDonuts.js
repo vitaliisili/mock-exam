@@ -1,10 +1,5 @@
 import * as React from 'react';
-import styled from "styled-components";
 import Chart from 'react-apexcharts'
-
-const ChartWrapper = styled.div`
-
-`
 
 const ChartDonuts = (props) => {
 
@@ -52,9 +47,9 @@ const ChartDonuts = (props) => {
 
 
     return (
-        <ChartWrapper>
+        <div>
             <Chart options={options} series={series} type="donut" width={100} height={100}/>
-        </ChartWrapper>
+        </div>
     )
 }
 

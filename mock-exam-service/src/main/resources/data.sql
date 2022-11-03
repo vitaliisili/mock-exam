@@ -16,8 +16,8 @@ insert into exam (created_at, modified_at, title, description, is_public, user_i
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 8 Certification Mock test', 'This Java 8 certification mock test', false, 1);
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
 -- delete start
-insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
-insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Small title', 'This Java 11 certification mock test', false, 1);
+insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test Big Title exam certification', 'This Java 11 certification mock test', false, 1);
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test', false, 1);
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test This Java 11 certification mock test', false, 1);
 insert into exam (created_at, modified_at, title, description, is_public, user_id) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 'Oracle Java 11 Certification Mock test', 'This Java 11 certification mock test', false, 1);
@@ -38,6 +38,13 @@ insert into exam_categories(exam_id, exam_category_id) values (2, 4);
 insert into exam_categories(exam_id, exam_category_id) values (2, 5);
 insert into exam_categories(exam_id, exam_category_id) values (2, 6);
 insert into exam_categories(exam_id, exam_category_id) values (2, 7);
+insert into exam_categories(exam_id, exam_category_id) values (3, 7);
+insert into exam_categories(exam_id, exam_category_id) values (4, 1);
+insert into exam_categories(exam_id, exam_category_id) values (5, 1);
+insert into exam_categories(exam_id, exam_category_id) values (6, 1);
+insert into exam_categories(exam_id, exam_category_id) values (7, 1);
+insert into exam_categories(exam_id, exam_category_id) values (8, 1);
+insert into exam_categories(exam_id, exam_category_id) values (9, 1);
 
 insert into question(created_at, modified_at, exam_id, title, explanation, is_multiple) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 1, 'What is Spring boot ?', 'Spring boot is framework', true);
 insert into question(created_at, modified_at, exam_id, title, explanation, is_multiple) values ('2022-07-04T13:08:21.899448819Z', '2022-07-04T13:08:21.899448819Z', 1, 'What is application.properties ?', 'application.properties is configuration file', false);

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-  background-color: #3C3F41;
+const Styled404Page = styled.div`
+  background-color: ${({theme}) => theme.colors.backgroundDark};
   font-weight: bolder;
   font-size: 30em;
   display: flex;
@@ -15,9 +15,9 @@ const Wrapper = styled.div`
 const NotFound404 = () => {
 
     return (
-        <Wrapper>
+        <Styled404Page>
             <div>404</div>
-        </Wrapper>
+        </Styled404Page>
     )
 }
 

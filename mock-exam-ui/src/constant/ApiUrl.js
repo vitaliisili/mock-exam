@@ -12,6 +12,8 @@ export const API_GET_ALL_EXAMS_BY_USER_ID = `${HOST}/exam/user`
 export const API_GET_EXAM_BY_ID = `${HOST}/exam`
 export const API_GET_EXAM_CATEGORY_BY_CURRENT_USER = `${HOST}/exam-category/principal`
 export const API_POST_SAVE_EXAM = `${HOST}/exam`
+export const API_DELETE_EXAM_BY_ID = `${HOST}/exam`
+export const API_UPDATE_EXAM = `${HOST}/exam`
 
 export const API_GET_QUESTIONS_BY_EXAM_ID = `${HOST}/question/exam`
 

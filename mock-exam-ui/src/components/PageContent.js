@@ -1,18 +1,24 @@
 import * as React from 'react';
 import styled from "styled-components";
 
+const PageWrapper = styled.div`
+  padding: 15px;
+`
+
 const StyledPageContent = styled.div`
-  background-color: black;
-  width: 100%;
-  height: 100%;
+  padding: ${({theme}) => theme.size.defaultPadding};
+  border-radius: ${({theme}) => theme.size.borderRadiusNormal};
+  box-shadow: ${({theme}) => theme.decoration.boxShadowThin};
 `
 
 const PageContent = ({ children }) => {
 
     return (
-        <StyledPageContent>
-            {children}
-        </StyledPageContent>
+        <PageWrapper>
+            <StyledPageContent>
+                {children}
+            </StyledPageContent>
+        </PageWrapper>
     )
 }
 

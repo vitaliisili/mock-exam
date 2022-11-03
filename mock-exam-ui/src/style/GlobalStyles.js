@@ -1,6 +1,32 @@
 import {createGlobalStyle} from "styled-components";
+import sfRegularWoff from '../fonts/sf/SF-Pro-Display-Regular.woff'
+import sfRegularBasic from '../fonts/sf/SF-Pro-Display-Regular.ttf'
+import sfBoldWoff from '../fonts/sf/SF-Pro-Display-Bold.woff'
+import sfBoldBasic from '../fonts/sf/SF-Pro-Display-Bold.ttf'
+import lato from '../fonts/Lato/Lato-Regular.ttf'
 
-export const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
+  
+  @font-face {
+    font-family: "sf-regular";
+    src: url(${sfRegularWoff}) format('woff'),
+         url(${sfRegularBasic}) format('truetype');
+    font-weight: normal;
+  }
+
+  @font-face {
+    font-family: "sf-bold";
+    src: url(${sfBoldWoff}) format('woff'),
+    url(${sfBoldBasic}) format('truetype');
+    font-weight: bold;
+  }
+
+  @font-face {
+    font-family: "lato";
+    src: url(${lato}) format('truetype');
+    font-weight: normal;
+  }
+  
   *,
   *::before,
   *::after {
@@ -37,7 +63,12 @@ export const GlobalStyles = createGlobalStyle`
   body {
     line-height: 1;
   }
-
+  
+  html, body {
+    min-height: 100%;
+    height: 100%;
+  }
+  
   main, article, aside, figure, footer, header, nav, section, details, summary {
     display: block;
   }
@@ -90,10 +121,10 @@ export const GlobalStyles = createGlobalStyle`
   input,
   select,
   textarea {
-    font-size: 100%; /* 1 */
-    margin: 0; /* 2 */
-    vertical-align: baseline; /* 3 */
-    *vertical-align: middle; /* 3 */
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+    *vertical-align: middle;
   }
 
   label,
@@ -108,6 +139,10 @@ export const GlobalStyles = createGlobalStyle`
   input[type=button] {
     width: auto; 
     overflow: visible;
+  }
+  
+  button {
+    border: none;
   }
 
   textarea {
@@ -124,11 +159,13 @@ export const GlobalStyles = createGlobalStyle`
     width: 12px;
   }
   body::-webkit-scrollbar-track {
-    background: #FFF;
-    border-left: 1px solid #F9F9F9;
-    border-radius: 0 10px 10px 10px;
+    background: #3C3F41;
+    border-radius: 0 0 10px 10px;
   }
   body::-webkit-scrollbar-thumb {
-    background-color: #3C3F41;
+    background-color: #72797D;
+    border-radius: 20px;
   }
 `
+
+export default GlobalStyles
