@@ -61,7 +61,7 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
 
     @Transactional
     @Override
-    public void persist(User user) {
+    public User persist(User user) {
         if (existsByUsername(user.getUsername())) {
             throw new BadRequestException(String.format("User with username %s already exist", user.getUsername()));
         }
@@ -85,13 +85,13 @@ public class UserServiceImpl extends ReadWriteServiceAbstraction<User, Long> imp
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
-    public void update(User entity) {
+    public User update(User entity) {
         User toUpdate = userRepository.findById(entity.getId()).orElseThrow(); // TODO: add logic
-        userRepository.save(userMapper.updateMapping(entity, toUpdate));
+        return userRepository.save(userMapper.updateMapping(entity, toUpdate));
     }
 
     @Override

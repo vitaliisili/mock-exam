@@ -20,5 +20,7 @@ public class ExamDto {
 //    private Long userId;
     private String createdAt;
     private Set<ExamCategoryDto> examCategories;
-
+//    private int questionNumber;
+//    private int time;
+//   private int passNumber;
 }

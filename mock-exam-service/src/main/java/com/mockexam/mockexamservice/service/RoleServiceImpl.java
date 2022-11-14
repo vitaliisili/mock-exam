@@ -31,8 +31,8 @@ public class RoleServiceImpl extends ReadWriteServiceAbstraction<Role, Long> imp
 
     @Transactional
     @Override
-    public void update(Role entity) {
+    public Role update(Role entity) {
         Role toUpdate = roleRepository.findById(entity.getId()).orElseThrow(); //todo: add logic
-        roleRepository.save(roleMapper.updateMapping(entity, toUpdate));
+        return roleRepository.save(roleMapper.updateMapping(entity, toUpdate));
     }
 }

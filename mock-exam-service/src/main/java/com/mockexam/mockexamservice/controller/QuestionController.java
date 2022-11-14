@@ -31,9 +31,9 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity<String> persistQuestion(@RequestBody QuestionDto questionDto) {
-        questionService.persist(questionMapper.toQuestion(questionDto));
-        return ResponseEntity.ok("Question has been saved successful");
+    public ResponseEntity<QuestionDto> persistQuestion(@RequestBody QuestionDto questionDto) {
+        Question question = questionService.persist(questionMapper.toQuestion(questionDto));
+        return ResponseEntity.ok(questionMapper.toQuestionDto(question));
     }
 
     @DeleteMapping("/{id}")
@@ -43,9 +43,9 @@ public class QuestionController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateQuestion(@RequestBody QuestionDto questionDto) {
-        questionService.update(questionMapper.toQuestion(questionDto));
-        return ResponseEntity.ok("Question has been updated successful");
+    public ResponseEntity<QuestionDto> updateQuestion(@RequestBody QuestionDto questionDto) {
+        Question question = questionService.update(questionMapper.toQuestion(questionDto));
+        return ResponseEntity.ok(questionMapper.toQuestionDto(question));
     }
 
     @GetMapping("/exam/{id}")

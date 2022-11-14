@@ -1,18 +1,23 @@
 package com.mockexam.mockexamservice.service;
 
 import com.mockexam.mockexamservice.model.Question;
+import com.mockexam.mockexamservice.model.QuestionAnswer;
 import com.mockexam.mockexamservice.repository.QuestionRepository;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
 import com.mockexam.mockexamservice.service.abstracts.QuestionAnswerService;
 import com.mockexam.mockexamservice.service.abstracts.QuestionService;
 import com.mockexam.mockexamservice.service.abstracts.ReadWriteServiceAbstraction;
 import com.mockexam.mockexamservice.service.mapper.QuestionMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
+@Slf4j
 public class QuestionServiceImpl extends ReadWriteServiceAbstraction<Question, Long> implements QuestionService {
 
     private final QuestionRepository questionRepository;
@@ -28,21 +33,8 @@ public class QuestionServiceImpl extends ReadWriteServiceAbstraction<Question, L
 
     @Override
     public List<Question> findAllByExamId(Long id) {
-        return questionRepository.findAllByExamId(id);
-    }
-
-    @Transactional
-    @Override
-    public void update(Question entity) {
-        Question toUpdate = questionRepository.findById(entity.getId()).orElseThrow(); //todo: add logic
-
-        toUpdate.setId(entity.getId());
-        toUpdate.setExam(entity.getExam());
-        toUpdate.setExplanation(entity.getExplanation());
-        toUpdate.setQuestionAnswers(entity.getQuestionAnswers());
-        toUpdate.setMultiple(entity.isMultiple());
-        toUpdate.setTitle(entity.getTitle());
-        questionRepository.save(toUpdate);
+        return questionRepository.findAllByExamIdOrderByCreatedAtDesc(id);
 
     }
+
 }

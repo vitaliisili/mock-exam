@@ -4,6 +4,7 @@ import com.mockexam.mockexamservice.repository.ReadWriteRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,12 @@ public abstract class ReadWriteServiceAbstraction<T, K> implements ReadWriteServ
 
     @Transactional(readOnly = true)
     @Override
+    public Iterable<T> findAll(Sort sort) {
+        return readWriteRepository.findAll(sort);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Page<T> findAll(Pageable pageable) {
         return readWriteRepository.findAll(pageable);
     }
@@ -45,8 +52,8 @@ public abstract class ReadWriteServiceAbstraction<T, K> implements ReadWriteServ
     }
 
     @Override
-    public void persist(T entity) {
-        readWriteRepository.save(entity);
+    public T persist(T entity) {
+        return readWriteRepository.save(entity);
     }
 
     @Override
@@ -55,8 +62,8 @@ public abstract class ReadWriteServiceAbstraction<T, K> implements ReadWriteServ
     }
 
     @Override
-    public void update(T entity) {
-        readWriteRepository.save(entity);
+    public T update(T entity) {
+        return readWriteRepository.save(entity);
     }
 
     @Override

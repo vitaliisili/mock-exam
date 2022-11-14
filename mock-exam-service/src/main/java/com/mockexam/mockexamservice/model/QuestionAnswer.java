@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name = "QUESTION_ANSWER")
 public class QuestionAnswer extends BaseEntity{
 
+    @Column(length = 1024)
     private String content;
     private boolean isCorrect;
 

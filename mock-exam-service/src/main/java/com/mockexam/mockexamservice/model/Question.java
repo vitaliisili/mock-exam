@@ -26,7 +26,11 @@ public class Question extends BaseEntity{
     private Exam exam;
 
 //    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, mappedBy = "question")
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, mappedBy = "question")
+    @OneToMany(cascade = {
+            CascadeType.REMOVE,
+            CascadeType.REFRESH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST}, mappedBy = "question")
     @ToString.Exclude
     private Set<QuestionAnswer> questionAnswers = new HashSet<>();
 

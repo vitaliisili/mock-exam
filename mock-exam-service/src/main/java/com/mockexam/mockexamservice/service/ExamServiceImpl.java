@@ -76,10 +76,12 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
 
     @Transactional
     @Override
-    public void update(Exam entity) {
+    public Exam update(Exam entity) {
         Exam toUpdate = examRepository.findById(entity.getId()).orElseThrow(() ->
                 new UserNotFoundException(String.format("Exam with %s not found", entity.getId())));
         examRepository.save(examMapper.updateMapping(entity, toUpdate));
+
+        return entity;
     }
 
 }
