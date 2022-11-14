@@ -9,8 +9,12 @@ const DarkTheme = ({ children }) => {
             backgroundDark: "#3C3F41",
             backgroundLight: "#F7F8FA",
             backgroundGrey: "#5F6568",
+            backgroundGreenThin: "#F1FCEF5E",
+            backgroundPinkThin: "#F6E2DF87",
             backgroundSelected: "#86C69C",
             backgroundDarkThin: "#575C5F",
+            backgroundLightThin: "#F0F1F3",
+
             fontPrimary: "#5F6568",
             fontLight: "#FDFDFD",
             fontLabel: "#ADADAD",

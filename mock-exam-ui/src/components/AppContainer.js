@@ -8,6 +8,13 @@ const StyledAppContainer = styled.div`
   background: ${({theme}) => theme.colors.backgroundLight};
   font-size: ${({theme}) => theme.size.fontPrimarySize};
   font-family: ${({theme}) => theme.fonts.sfRegular};
+  
+  input, textArea {
+    border: 1px solid ${({theme}) => theme.colors.inputBorder};
+    background-color: transparent;
+    border-radius: ${({theme}) => theme.size.borderRadiusThin};
+    color: ${({theme}) => theme.colors.fontPrimary};
+  }
 `
 
 const AppContainer = ({ children }) => {

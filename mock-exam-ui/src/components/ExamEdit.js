@@ -29,7 +29,7 @@ const ExamEdit = () => {
         <Container>
             <StyledExamEdit>
                 <section className="section">
-                    <div className="section-title">Update Exam</div>
+                    <div className="section-title">Edit Exam</div>
                 </section>
 
                 <section className="section">

@@ -224,7 +224,6 @@ const MyExams = () => {
                                 <div className="card-section card-section-category">
                                     {exams && exam.examCategories.map((category, index) => (
                                         <div className="card-category" key={index}>
-                                            {/*<BsTag className="card-category-icon"/>*/}
                                             <span className="card-category-text">{category.name}</span>
                                         </div>
                                     ))}

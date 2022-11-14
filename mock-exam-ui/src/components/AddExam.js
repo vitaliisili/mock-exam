@@ -1,17 +1,5 @@
 import * as React from 'react';
 import styled from "styled-components";
-import NavBar from "./NavBar";
-import SideBar from "./SideBar";
-import {useEffect, useRef, useState} from "react";
-import TextareaAutosize from 'react-textarea-autosize';
-import {API_GET_EXAM_CATEGORY_BY_CURRENT_USER, API_POST_SAVE_EXAM} from "../constant/ApiUrl";
-import {getCookie} from "../service/cookies-service";
-import axios from "axios";
-import {AiOutlinePlusCircle} from "react-icons/ai";
-import {AiOutlineCloseCircle} from "react-icons/ai";
-import {AiOutlineCheck} from "react-icons/ai";
-import {RiQuestionAnswerLine} from "react-icons/ri";
-import {useNavigate} from "react-router-dom";
 import Container from "./Container";
 import ExamEditForm from "./ExamEditForm";
 

@@ -16,6 +16,9 @@ export const API_DELETE_EXAM_BY_ID = `${HOST}/exam`
 export const API_UPDATE_EXAM = `${HOST}/exam`
 
 export const API_GET_QUESTIONS_BY_EXAM_ID = `${HOST}/question/exam`
+export const API_PUT_QUESTION = `${HOST}/question`
+export const API_POST_QUESTION = `${HOST}/question`
+export const API_DELETE_QUESTION_BY_ID = `${HOST}/question`
 
 
 

@@ -15,44 +15,46 @@ import {VscError} from "react-icons/vsc";
 import {VscQuestion} from "react-icons/vsc";
 import {VscPass} from "react-icons/vsc";
 import Container from "./Container";
-import { TiEdit } from "react-icons/ti";
-import { BiTrash } from "react-icons/bi";
+import {TiEdit} from "react-icons/ti";
+import {BiTrash} from "react-icons/bi";
 import axios from "axios";
 import {getCookie} from "../service/cookies-service";
+import ConfirmationModal from "./ConfirmationModal";
 
 const StyledExam = styled.div`
-  
+
   .exam-section {
     &-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       &-title {
         font-size: ${({theme}) => theme.size.h1};
         font-weight: bolder;
         max-width: ${({theme}) => theme.size.lineLength};
       }
-      
+
       &-icons {
         font-size: ${({theme}) => theme.size.fontSizeExtra};
         display: flex;
-        
+
         &-item {
           cursor: pointer;
           margin-left: 10px;
           position: relative;
-          
+
           :hover {
 
             .exam-section-header-icons-edit {
               color: ${({theme}) => theme.colors.textHover};
             }
-            
+
             .exam-section-header-icons-delete {
               color: ${({theme}) => theme.colors.iconHover};
             }
           }
-          
+
           :hover:after {
             content: attr(data-name);
             position: absolute;
@@ -76,35 +78,37 @@ const StyledExam = styled.div`
             top: -10px;
           }
         }
-        
+
       }
-      
+
     }
-    
+
     &-info {
       display: flex;
       margin-top: 20px;
+
       &-element {
         display: flex;
         align-items: center;
         margin-right: 20px;
         font-size: ${({theme}) => theme.size.fontMediumSize};
-        font-weight:bold;
-        
+        font-weight: bold;
+
         &-icon {
           font-size: ${({theme}) => theme.size.fontMenuSize};
           margin-right: 3px;
         }
       }
     }
-    
+
     &-description {
       margin-top: 20px;
       max-width: 100ch;
     }
-    
+
     &-start {
       margin-top: 40px;
+
       &-button {
         background-color: ${({theme}) => theme.colors.backgroundGrey};
         color: ${({theme}) => theme.colors.fontLight};
@@ -116,19 +120,21 @@ const StyledExam = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+
         :hover {
           background: ${({theme}) => theme.colors.backgroundDarkThin};
           color: ${({theme}) => theme.colors.textHover};
         }
       }
     }
-    
+
     &-statistic {
       margin-top: 40px;
+
       &-title {
         color: ${({theme}) => theme.colors.fontLabel};
       }
-      
+
       &-items {
         display: flex;
         flex-direction: column;
@@ -193,55 +199,7 @@ const StyledExam = styled.div`
         }
       }
     }
-    
-  }
-  
-  .confirmation-popup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(95,101,104, 0.5);
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    
-    &-body {
-      background-color: ${({theme}) => theme.colors.backgroundLight};
-      padding: ${({theme}) => theme.size.defaultPadding};
-      border-radius: ${({theme}) => theme.size.borderRadiusThin};
-      &-text {
-        //color: ${({theme}) => theme.colors.fontLight};
-        font-size: ${({theme}) => theme.size.fontMediumSize};
-      }
-      
-      &-buttons {
-        margin-top: ${({theme}) => theme.size.defaultPadding};
-        display: flex;
-        justify-content: end;
-        
-        &-item {
-          color: ${({theme}) => theme.colors.fontLight};
-          padding: 5px 10px;
-          margin-left: 10px;
-          border-radius: ${({theme}) => theme.size.borderRadiusThin};
-          
-          :hover {
-            filter: brightness(95%);
-          }
-        }
-        
-        &-delete{
-          background-color: ${({theme}) => theme.colors.iconHover};
-        }
-        
-        &-close {
-          background-color: ${({theme}) => theme.colors.backgroundSelected};
-        }
-      }
-    }
+
   }
 `
 
@@ -307,8 +265,6 @@ const Exam = () => {
         navigate(`/exam-attempt/${id}`)
     }
 
-
-
     const deleteExam = () => {
         axios({
             method: "DELETE",
@@ -336,11 +292,13 @@ const Exam = () => {
                         <div className="exam-section-header">
                             <div className="exam-section-header-title">{exam.title}</div>
                             <div className="exam-section-header-icons">
-                                <div onClick={() => navigate(`/exam-questions/${id}`)} data-name={"Edit"} className="exam-section-header-icons-item">
+                                <div onClick={() => navigate(`/exam-questions/${id}`)} data-name={"Edit"}
+                                     className="exam-section-header-icons-item">
                                     <TiEdit className="exam-section-header-icons-edit"/>
                                 </div>
 
-                                <div onClick={() => setModal(true)} data-name={"Delete"} className="exam-section-header-icons-item">
+                                <div onClick={() => setModal(true)} data-name={"Delete"}
+                                     className="exam-section-header-icons-item">
                                     <BiTrash className="exam-section-header-icons-delete"/>
                                 </div>
 
@@ -352,7 +310,8 @@ const Exam = () => {
                         <div className="exam-section-info">
                             <div className="exam-section-info-element">
                                 <RiQuestionnaireLine className="exam-section-info-element-icon"/>
-                                <span className="exam-section-info-element-text">{questionNumber > 1 ? `${questionNumber} questions` : `${questionNumber} question`}</span>
+                                <span
+                                    className="exam-section-info-element-text">{questionNumber > 1 ? `${questionNumber} questions` : `${questionNumber} question`}</span>
                             </div>
 
                             <div className="exam-section-info-element">
@@ -372,7 +331,8 @@ const Exam = () => {
                                 {exam.isPublic &&
                                     <MdOutlinePeopleOutline className="exam-section-info-element-icon"/>
                                 }
-                                <span className="exam-section-info-element-text">{exam.isPublic ? "Public" : "Private"}</span>
+                                <span
+                                    className="exam-section-info-element-text">{exam.isPublic ? "Public" : "Private"}</span>
                             </div>
                         </div>
                     </section>
@@ -388,7 +348,7 @@ const Exam = () => {
                             <button onClick={startExam} className="exam-section-start-button">START EXAM</button>
                         </div>
                     </section>
-                    
+
                     <section className="exam-section">
                         <div className="exam-section-statistic">
                             <div className="exam-section-statistic-title">EXAM STATISTIC</div>
@@ -432,16 +392,11 @@ const Exam = () => {
                         </div>
                     </section>
 
-                    { modal &&
-                        <div className="confirmation-popup">
-                            <div className="confirmation-popup-body">
-                                <div className="confirmation-popup-body-text">Are you sure you want to delete this exam?</div>
-                                <div className="confirmation-popup-body-buttons">
-                                    <button className="confirmation-popup-body-buttons-item confirmation-popup-body-buttons-delete" onClick={deleteExam}>Yes Delete</button>
-                                    <button className="confirmation-popup-body-buttons-item confirmation-popup-body-buttons-close" onClick={() => setModal(false)}>No Close</button>
-                                </div>
-                            </div>
-                        </div>
+                    {modal &&
+                        <ConfirmationModal
+                            callBackModal={(toggle) => setModal(toggle)}
+                            callBackDelete={(confirm) => confirm && deleteExam()}
+                        />
                     }
 
                 </StyledExam>}
