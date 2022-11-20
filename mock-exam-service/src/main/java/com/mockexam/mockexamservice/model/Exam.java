@@ -20,8 +20,12 @@ public class Exam extends BaseEntity{
 
     @Column(length = 2048)
     private String description;
-//    private String photoLink; // TODO: add photo
+
     private boolean isPublic;
+
+    private int time;
+
+    private int passPercentage;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -41,8 +45,7 @@ public class Exam extends BaseEntity{
     private Set<Question> questions = new HashSet<>();
 
     public void addExamCategory(ExamCategory examCategory) {
-        this.examCategories.add(examCategory);
-        System.out.println("Add Category exam id: " + this.getId());
         examCategory.getExams().add(this);
+        this.examCategories.add(examCategory);
     }
 }

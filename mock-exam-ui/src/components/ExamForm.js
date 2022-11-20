@@ -10,7 +10,7 @@ import {getCookie} from "../service/cookies-service";
 import {useEffect, useState} from "react";
 import {MdSystemUpdateAlt} from "react-icons/md";
 
-const StyledExamEditForm = styled.form`
+const StyledExamForm = styled.form`
   margin-top: 40px;
   width: 980px;
 
@@ -41,6 +41,29 @@ const StyledExamEditForm = styled.form`
     min-height: 100px;
   }
 
+  .block-section {
+    display: flex;
+    flex-direction: row;
+    
+    &-item {
+      margin-right: 150px;
+
+      &-input {
+        margin-top: 15px;
+        padding: 5px;
+        font-size: ${({theme}) => theme.size.fontLabelSize};
+        ::placeholder {
+          color: ${({theme}) => theme.colors.fontLabel};
+        }
+      }
+      
+      &-error {
+        margin-top: 40px;
+        margin-left: -100px;
+        color: ${({theme}) => theme.colors.iconHover};
+      }
+    }
+  }
 
   .category-wrapper {
     display: flex;
@@ -73,8 +96,7 @@ const StyledExamEditForm = styled.form`
   .selected-category {
     background-color: ${({theme}) => theme.colors.backgroundSelected};
   }
-
-
+  
   .add-category-icon {
     font-size: 27px;
     color: ${({theme}) => theme.colors.backgroundSelected};
@@ -194,18 +216,21 @@ const StyledExamEditForm = styled.form`
   }
 `
 
-const ExamEditForm = ({type, exam}) => {
+const ExamForm = ({type, exam}) => {
 
     const {id} = useParams()
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [isPublic, setIsPublic] = useState(false)
+    const [time, setTime] = useState("")
+    const [passPercentage, setPassPercentage] = useState("")
     const [isPending, setPending] = useState(true)
     const [error, setError] = useState(null)
     const [categories, setCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
     const [iconActive, setIconActive] = useState(true)
     const [categoryText, setCategoryText] = useState("")
+    const [formError, setFormError] = useState("")
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -219,6 +244,8 @@ const ExamEditForm = ({type, exam}) => {
                     setTitle(exam.title)
                     setDescription(exam.description)
                     setIsPublic(exam.isPublic)
+                    setTime(exam.time)
+                    setPassPercentage(exam.passPercentage)
                     setSelectedCategories(exam.examCategories)
 
                 }
@@ -282,7 +309,28 @@ const ExamEditForm = ({type, exam}) => {
 
     }
 
+    const checkExamForm = () => {
+        if (title.trim() === "") {
+            setFormError("Title must not be empty!")
+            return false
+        }
+
+        if (time === "") {
+            setFormError("Exam time must not be empty!")
+            return false
+        }
+
+        if (passPercentage === "") {
+            setFormError("Percentage must not be empty!")
+            return false
+        }
+
+        return true
+    }
+
     const saveExam = () => {
+
+        if (!checkExamForm()) return
 
         axios({
             method: type === "create" ? "POST" : "PUT",
@@ -295,6 +343,8 @@ const ExamEditForm = ({type, exam}) => {
                 title,
                 description,
                 isPublic,
+                time,
+                passPercentage,
                 examCategories: selectedCategories
             },
         }).then(res => {
@@ -307,7 +357,7 @@ const ExamEditForm = ({type, exam}) => {
     }
 
     return (
-        <StyledExamEditForm onSubmit={saveExam}>
+        <StyledExamForm onSubmit={saveExam}>
             <div className="input-section">
                 <div className="input-wrapper section-wrapper">
                     <label className="input-label" htmlFor="exam-title">SET TITLE</label>
@@ -329,8 +379,6 @@ const ExamEditForm = ({type, exam}) => {
             </div>
 
             <div className="category-section section-wrapper">
-
-
                 <div className="select-category-header">All EXAM CATEGORY</div>
                 <div className="category-wrapper">
                     <div className="category-select-section">
@@ -382,32 +430,54 @@ const ExamEditForm = ({type, exam}) => {
                 </div>
 
 
-                <div className="access-section section-wrapper">
-                    <div className="access-title select-category-header">ACCESS</div>
-                    <div className="radio-access-wrapper">
-                        <div onClick={() => setIsPublic(true)} className="check-box">
-                            <div className={isPublic ? "radio-box radio-box-active" : "radio-box"}></div>
-                            <div className="radio-text">Public</div>
-                        </div>
+                <div className="access-section section-wrapper block-section">
+                    <div className="block-section-item">
+                        <div className="access-title select-category-header">ACCESS</div>
+                        <div className="radio-access-wrapper">
+                            <div onClick={() => setIsPublic(true)} className="check-box">
+                                <div className={isPublic ? "radio-box radio-box-active" : "radio-box"}></div>
+                                <div className="radio-text">Public</div>
+                            </div>
 
-                        <div onClick={() => setIsPublic(false)} className="check-box">
-                            <div className={isPublic ? "radio-box" : "radio-box radio-box-active"}></div>
-                            <div className="radio-text">Private</div>
+                            <div onClick={() => setIsPublic(false)} className="check-box">
+                                <div className={isPublic ? "radio-box" : "radio-box radio-box-active"}></div>
+                                <div className="radio-text">Private</div>
+                            </div>
                         </div>
                     </div>
+
+                    <div className="block-section-item">
+                        <div className="access-title select-category-header">EXAM TIME MINUTE</div>
+                        <input onChange={(e) => setTime(e.target.value > 1500 ? 1500 : e.target.value)} value={time} className="block-section-item-input" type="number" placeholder="Max 1500 minute"/>
+                    </div>
+
+                    <div className="block-section-item">
+                        <div className="access-title select-category-header">PERCENTAGE TO PASS</div>
+                        <input onChange={(e) => setPassPercentage(e.target.value > 100 ? 100 : e.target.value)} value={passPercentage} className="block-section-item-input" type="number" placeholder="Max 100%"/>
+                    </div>
+
                 </div>
             </div>
 
-            <div onClick={saveExam} className="add-question-btn">
-                {type === "create" ?
-                    <RiQuestionAnswerLine className="question-btn-icon"/> :
-                    <MdSystemUpdateAlt className="question-btn-icon"/>
-                }
+            <div className="block-section">
+                <div className="block-section-item">
+                    <div onClick={saveExam} className="add-question-btn">
+                        {type === "create" ?
+                            <RiQuestionAnswerLine className="question-btn-icon"/> :
+                            <MdSystemUpdateAlt className="question-btn-icon"/>
+                        }
 
-                <span className="question-btn-text">{type === "create" ? "Add Questions" : "Save Changes"}</span>
+                        <span className="question-btn-text">{type === "create" ? "Add Questions" : "Save Changes"}</span>
+                    </div>
+                </div>
+
+                <div className="block-section-item">
+                    <p className="block-section-item-error">{formError}</p>
+                </div>
             </div>
-        </StyledExamEditForm>
+
+        </StyledExamForm>
     )
 }
 
-export default ExamEditForm
+export default ExamForm

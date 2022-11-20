@@ -202,7 +202,7 @@ const MyExams = () => {
                                     <div className="exam-card-header-info">
                                         <div className="exam-card-header-info-item">
                                             <RiQuestionAnswerLine className="exam-card-header-info-item-icon"/>
-                                            <span className="exam-card-header-info-item-text">50</span>
+                                            <span className="exam-card-header-info-item-text">{exam.questions}</span>
                                         </div>
 
                                         <div className="exam-card-header-info-item">

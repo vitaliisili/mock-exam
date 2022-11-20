@@ -16,8 +16,12 @@ import java.util.Set;
 @Table(name = "QUESTION")
 public class Question extends BaseEntity{
 
+    @Column(columnDefinition="text", length=4048)
     private String title;
+
+    @Column(columnDefinition="text", length=4048)
     private String explanation;
+
     private boolean isMultiple;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
@@ -25,7 +29,6 @@ public class Question extends BaseEntity{
     @ToString.Exclude
     private Exam exam;
 
-//    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, mappedBy = "question")
     @OneToMany(cascade = {
             CascadeType.REMOVE,
             CascadeType.REFRESH,

@@ -207,9 +207,9 @@ const Exam = () => {
 
     const {id} = useParams()
     const {data: exam, isPending, error} = useFetchData(`${API_GET_EXAM_BY_ID}/${id}`)
-    const [questionNumber, setQuestionNumber] = useState(50) // todo: add question number to exam in backend
-    const [examTime, setExamTime] = useState(90) // todo: add to exam in backend
-    const [percentRequired, setPercentRequired] = useState(76) // todo: add to exam in backend
+    // const [questionNumber, setQuestionNumber] = useState(50) // todo: add question number to exam in backend
+    // const [examTime, setExamTime] = useState(90) // todo: add to exam in backend
+    // const [percentRequired, setPercentRequired] = useState(76) // todo: add to exam in backend
     const [examStatistic, setExamStatistic] = useState(null) //todo : add backend part
     const [modal, setModal] = useState(false)
     const navigate = useNavigate()
@@ -311,17 +311,17 @@ const Exam = () => {
                             <div className="exam-section-info-element">
                                 <RiQuestionnaireLine className="exam-section-info-element-icon"/>
                                 <span
-                                    className="exam-section-info-element-text">{questionNumber > 1 ? `${questionNumber} questions` : `${questionNumber} question`}</span>
+                                    className="exam-section-info-element-text">{exam.questions > 1 ? `${exam.questions} questions` : `${exam.questions} question`}</span>
                             </div>
 
                             <div className="exam-section-info-element">
                                 <AiOutlineFieldTime className="exam-section-info-element-icon"/>
-                                <span className="exam-section-info-element-text">{examTime} minutes</span>
+                                <span className="exam-section-info-element-text">{exam.time} minutes</span>
                             </div>
 
                             <div className="exam-section-info-element">
                                 <AiOutlineFileDone className="exam-section-info-element-icon"/>
-                                <span className="exam-section-info-element-text">{percentRequired}% correct answers required to pass</span>
+                                <span className="exam-section-info-element-text">{exam.passPercentage}% correct answers required to pass</span>
                             </div>
 
                             <div className="exam-section-info-element">
@@ -359,7 +359,7 @@ const Exam = () => {
                                             <ChartDonuts failed={statistic.wrongAnswers} correct={statistic.correctAnswers}
                                                          wrong={statistic.wrongAnswers} skipped={statistic.skippedAnswers}/>
                                             <div
-                                                className="statistic-percent">{(statistic.correctAnswers * 100) / questionNumber}%
+                                                className="statistic-percent">{(statistic.correctAnswers * 100) / exam.questions}%
                                             </div>
                                             <div
                                                 className={statistic.success ? "statistic-success" : "statistic-failed"}>{statistic.success ? "Passed" : "Failed"}</div>

@@ -6,11 +6,11 @@ import sfBoldBasic from '../fonts/sf/SF-Pro-Display-Bold.ttf'
 import lato from '../fonts/Lato/Lato-Regular.ttf'
 
 const GlobalStyles = createGlobalStyle`
-  
+
   @font-face {
     font-family: "sf-regular";
     src: url(${sfRegularWoff}) format('woff'),
-         url(${sfRegularBasic}) format('truetype');
+    url(${sfRegularBasic}) format('truetype');
     font-weight: normal;
   }
 
@@ -26,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
     src: url(${lato}) format('truetype');
     font-weight: normal;
   }
-  
+
   *,
   *::before,
   *::after {
@@ -53,7 +53,7 @@ const GlobalStyles = createGlobalStyle`
     border: 0;
     font: inherit;
   }
-  
+
   html {
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
@@ -63,12 +63,12 @@ const GlobalStyles = createGlobalStyle`
   body {
     line-height: 1;
   }
-  
+
   html, body {
     min-height: 100%;
     height: 100%;
   }
-  
+
   main, article, aside, figure, footer, header, nav, section, details, summary {
     display: block;
   }
@@ -83,16 +83,16 @@ const GlobalStyles = createGlobalStyle`
     max-width: 100%;
     border: 0;
   }
-  
+
   ul, ol {
     list-style: none;
   }
 
   a {
-    margin: 0; 
-    padding: 0; 
-    font-size: 100%; 
-    vertical-align: baseline; 
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
     background: transparent;
     color: inherit;
     text-decoration: inherit;
@@ -137,10 +137,10 @@ const GlobalStyles = createGlobalStyle`
 
   button,
   input[type=button] {
-    width: auto; 
+    width: auto;
     overflow: visible;
   }
-  
+
   button {
     border: none;
   }
@@ -154,18 +154,125 @@ const GlobalStyles = createGlobalStyle`
   [hidden] {
     display: none;
   }
-  
+
   body::-webkit-scrollbar {
     width: 12px;
-    
+
   }
+
   body::-webkit-scrollbar-track {
     background: #3C3F41;
     border-radius: 0 0 10px 10px;
   }
+
   body::-webkit-scrollbar-thumb {
     background-color: #72797D;
     border-radius: 20px;
+  }
+
+  pre {
+    padding: 20px;
+    background-color: #D6D6D6;
+    color: #5F6568;
+    border-radius: 3px;
+    margin: 10px 0;
+    width: fit-content;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  }
+
+  p {
+    line-height: 20px;
+  }
+
+  p a {
+    color: #C86671 !important;
+  }
+
+  //quill style
+  .ql-editor {
+    color: #5F6568;
+    font-size: 16px;
+  }
+
+  .ql-snow a {
+    color: #C86671;
+  }
+
+  .ql-snow .ql-editor pre.ql-syntax {
+    padding: 20px;
+    background-color: #D6D6D6;
+    font-family: Consolas sans-serif;
+    color: #55585b;
+    border-radius: 3px;
+    margin: 10px 0;
+    width: fit-content;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  }
+
+  .ql-snow.ql-toolbar button:hover .ql-fill,
+  .ql-snow .ql-toolbar button:hover .ql-fill,
+  .ql-snow.ql-toolbar button:focus .ql-fill,
+  .ql-snow .ql-toolbar button:focus .ql-fill,
+  .ql-snow.ql-toolbar button.ql-active .ql-fill,
+  .ql-snow .ql-toolbar button.ql-active .ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+  .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill,
+  .ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill,
+  .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+    fill: ${({theme}) => theme.colors.backgroundSelected};
+  }
+
+  .ql-snow.ql-toolbar button:hover .ql-stroke,
+  .ql-snow .ql-toolbar button:hover .ql-stroke,
+  .ql-snow.ql-toolbar button:focus .ql-stroke,
+  .ql-snow .ql-toolbar button:focus .ql-stroke,
+  .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+  .ql-snow .ql-toolbar button.ql-active .ql-stroke,
+  .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+  .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+  .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+  .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke,
+  .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke,
+  .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+  .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+  .ql-snow.ql-toolbar button:hover .ql-stroke-miter,
+  .ql-snow .ql-toolbar button:hover .ql-stroke-miter,
+  .ql-snow.ql-toolbar button:focus .ql-stroke-miter,
+  .ql-snow .ql-toolbar button:focus .ql-stroke-miter,
+  .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter,
+  .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter,
+  .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+  .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+  .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+  .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+  .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+  .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
+  .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+    stroke: ${({theme}) => theme.colors.backgroundSelected};
+  }
+
+  .ql-snow .ql-stroke {
+    stroke: ${({theme}) => theme.colors.fontPrimary};
   }
 `
 

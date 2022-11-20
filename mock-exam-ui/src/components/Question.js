@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from "styled-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import QuestionForm from "./QuestionForm";
 import {FaRegEdit} from "react-icons/fa";
 import {TfiTrash} from "react-icons/tfi";
@@ -9,7 +9,7 @@ import {API_DELETE_QUESTION_BY_ID} from "../constant/ApiUrl";
 import {getCookie} from "../service/cookies-service";
 
 const StyledQuestion = styled.div`
-  margin-top: 25px;
+  margin-top: 40px;
   box-shadow: ${({theme}) => theme.decoration.boxShadowDark};
   border-radius: ${({theme}) => theme.size.borderRadiusThin};
   background-color: ${({theme}) => theme.colors.backgroundLightThin};
@@ -63,9 +63,14 @@ const StyledQuestion = styled.div`
       margin-top: 10px;
     }
 
+    &-answers-text {
+      font-weight: bold;
+      margin-top: ${({theme}) => theme.size.defaultPadding};
+    }
+    
     &-answers {
-      margin-top: 20px;
-
+      margin-top: 10px;
+      
       &-item {
         padding: 15px;
         box-shadow: ${({theme}) => theme.decoration.boxShadowThin};
@@ -171,6 +176,13 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
         })
     }
 
+    useEffect(() => {
+        document.querySelectorAll("pre").forEach((element) => {
+            console.log(element.children)
+        })
+
+    }, [])
+
     return (
         <StyledQuestion>
             {
@@ -192,9 +204,11 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
                             </div>
                         </div>
 
-                        <div className="question-preview-content">{question.title}</div>
+                        <div className="question-preview-content" dangerouslySetInnerHTML={{__html: question.title}}></div>
 
+                        <span className="question-preview-answers-text">Answers:</span>
                         <div className="question-preview-answers">
+
                             {
                                 question.questionAnswers.map((answer, index) => (
                                     <div key={index} className={
@@ -222,7 +236,7 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
 
                         <div className="question-preview-explanation">
                             <div className="question-preview-explanation-label">Explanation:</div>
-                            <div className="question-preview-explanation-content">{question.explanation}</div>
+                            <div className="question-preview-content" dangerouslySetInnerHTML={{__html: question.explanation}}></div>
                         </div>
                     </div>
 

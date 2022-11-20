@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import useFetchData from "../service/useFetchData";
 import {API_GET_EXAM_BY_ID, API_GET_EXAM_CATEGORY_BY_CURRENT_USER} from "../constant/ApiUrl";
-import ExamEditForm from "./ExamEditForm";
+import ExamForm from "./ExamForm";
 
 const StyledExamEdit = styled.div`
   .section {
@@ -35,7 +35,7 @@ const ExamEdit = () => {
                 <section className="section">
                     <div className="section-form">
                         {exam &&
-                            <ExamEditForm type="update" exam={exam}/>
+                            <ExamForm type="update" exam={exam}/>
                         }
                     </div>
                 </section>

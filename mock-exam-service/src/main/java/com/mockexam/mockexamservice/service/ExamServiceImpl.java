@@ -2,7 +2,6 @@ package com.mockexam.mockexamservice.service;
 
 import com.mockexam.mockexamservice.exception.UserNotFoundException;
 import com.mockexam.mockexamservice.model.Exam;
-import com.mockexam.mockexamservice.model.ExamCategory;
 import com.mockexam.mockexamservice.model.User;
 import com.mockexam.mockexamservice.repository.ExamRepository;
 import com.mockexam.mockexamservice.repository.ReadWriteRepository;
@@ -15,9 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +37,7 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
     @Transactional(readOnly = true)
     @Override
     public List<Exam> findAllByUserId(Long id) {
-        return examRepository.findAllByUserId(id);
+        return examRepository.findAllByUserIdOrderByCreatedAtDesc(id);
     }
 
     @Override
@@ -66,7 +63,7 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
 
     @Transactional
     @Override
-    public Iterable<Exam> findAll(int page, int size) {
+    public Iterable<Exam> findAllPublic(int page, int size) {
         return examRepository
                 .findAll(PageRequest.of(page, size))
                 .filter(Exam::isPublic)

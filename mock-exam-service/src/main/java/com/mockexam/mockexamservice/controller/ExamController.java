@@ -25,9 +25,9 @@ public class ExamController {
 
     @GetMapping
     public ResponseEntity<List<ExamDto>> getAllPublicExams(@RequestParam int page,
-                                                           @RequestParam Optional<Integer> size) { //TODO: add method get only public exams
+                                                           @RequestParam Optional<Integer> size) {
 
-        Iterable<Exam> exams = examService.findAll(page, size.orElse(12));
+        Iterable<Exam> exams = examService.findAllPublic(page, size.orElse(12));
 
         System.out.println(examMapper.toExamDtoList(exams));
         return ResponseEntity.ok(examMapper.toExamDtoList(exams));

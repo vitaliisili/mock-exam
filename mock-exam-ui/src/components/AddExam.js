@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from "styled-components";
 import Container from "./Container";
-import ExamEditForm from "./ExamEditForm";
+import ExamForm from "./ExamForm";
 
 const StyledAddExam = styled.div`
 
@@ -30,7 +30,7 @@ const AddExam = () => {
 
                 <section className="section">
                     <section className="section-form">
-                        <ExamEditForm type="create" exam={null}/>
+                        <ExamForm type="create" exam={null}/>
                     </section>
                 </section>
             </StyledAddExam>

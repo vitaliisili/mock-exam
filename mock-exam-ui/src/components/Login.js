@@ -1,3 +1,4 @@
+import * as React from 'react';
 import styled from "styled-components";
 import {useEffect, useState} from "react";
 import {API_GET_CURRENT_USER, API_POST_SIGN_IN} from "../constant/ApiUrl";

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import TextareaAutosize from "react-textarea-autosize";
 import {BsPlusSquare} from "react-icons/bs";
 import QuestionAnswer from "./QuestionAnswer";
 import QuestionAnswerForm from "./QuestionAnswerForm";
@@ -9,6 +8,7 @@ import axios from "axios";
 import {API_POST_QUESTION, API_POST_SAVE_EXAM, API_PUT_QUESTION, API_UPDATE_EXAM} from "../constant/ApiUrl";
 import {getCookie} from "../service/cookies-service";
 import {useParams} from "react-router-dom";
+import TextEditor from "./TextEditor";
 
 const StyledQuestionForm = styled.form`
   box-shadow: ${({theme}) => theme.decoration.boxShadowDark};
@@ -101,7 +101,8 @@ const StyledQuestionForm = styled.form`
         padding: 20px;
         
         &-add_btn {
-          background-color: ${({theme}) => theme.colors.backgroundGrey};
+          //background-color: ${({theme}) => theme.colors.backgroundDarkThin};
+          background-color: #7A8185;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -113,12 +114,8 @@ const StyledQuestionForm = styled.form`
           margin-top: 20px;
           
           :hover {
-            background-color: ${({theme}) => theme.colors.backgroundDarkThin};
+            background-color: #72797D;
             color: ${({theme}) => theme.colors.textHover};
-            
-            .form-section-answers-list-add_btn-icon {
-              color: ${({theme}) => theme.colors.iconHover};
-            }
           }
           
           &-text {
@@ -175,7 +172,7 @@ const StyledQuestionForm = styled.form`
 const QuestionForm = ({data: question, type, position, callBackShowForm, callBackQuestionData}) => {
 
     const {id: examId} = useParams()
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState('')
     const [explanation, setExplanation] = useState("")
     const [isMultiple, setIsMultiple] = useState(false)
     const [answers, setAnswers] = useState([])
@@ -254,12 +251,7 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
             <section className="form-section">
                 <div className="form-section-question_title">
                     <label htmlFor="form-question-title" className="form-section-label">Question:</label>
-                    <TextareaAutosize
-                        id="form-question-title"
-                        className="form-section-question_title-input"
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                    />
+                    <TextEditor data={title} setData={setTitle}/>
                 </div>
             </section>
 
@@ -311,12 +303,7 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
             <section className="form-section">
                 <div className="form-section-explanation">
                     <label htmlFor="explanation-area" className="form-section-explanation-label">Explanation:</label>
-                    <TextareaAutosize
-                        id="explanation-area"
-                        className="form-section-explanation-input"
-                        onChange={(e) => setExplanation(e.target.value)}
-                        value={explanation}
-                    />
+                    <TextEditor data={explanation} setData={setExplanation}/>
                 </div>
             </section>
 

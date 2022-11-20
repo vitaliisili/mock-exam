@@ -17,10 +17,9 @@ public class ExamDto {
     private String description;
     @JsonProperty("isPublic")
     private boolean isPublic;
-//    private Long userId;
     private String createdAt;
     private Set<ExamCategoryDto> examCategories;
-//    private int questionNumber;
-//    private int time;
-//   private int passNumber;
+    private int questions;
+    private int time;
+    private int passPercentage;
 }

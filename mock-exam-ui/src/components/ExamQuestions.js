@@ -157,6 +157,13 @@ const StyledExamQuestions = styled.div`
       }
     }
   }
+  
+  // pre {
+  //   background-color: ${({theme}) => theme.colors.backgroundDark} !important;
+  //   padding: ${({theme}) => theme.size.defaultPadding};
+  //   color: ${({theme}) => theme.colors.fontLight};
+  // }
+  
 `
 
 const ExamQuestions = () => {
@@ -264,7 +271,7 @@ const ExamQuestions = () => {
                                             <AiOutlineFieldTime
                                                 className="exam-info-block-item-inline-icon exam-info-question_time-icon"/>
                                             {/*<div className="exam-info-question_time-text">{exam.time} Minutes</div>   todo: implement this field on server side */}
-                                            <div className="exam-info-question_time-text">{120} minutes</div>
+                                            <div className="exam-info-question_time-text">{exam.time} minutes</div>
                                         </div>
                                     </div>
 
@@ -273,7 +280,7 @@ const ExamQuestions = () => {
                                             <AiOutlineFileDone
                                                 className="exam-info-block-item-inline-icon exam-info-question_pass-icon"/>
                                             {/*<div className="exam-info-question_pass-text">{exam.passPercent}% Required to pass</div>   todo: implement this field on server side */}
-                                            <div className="exam-info-question_time-text">{76}% Required to pass</div>
+                                            <div className="exam-info-question_time-text">{exam.passPercentage}% Required to pass</div>
                                         </div>
                                     </div>
                                 </div>

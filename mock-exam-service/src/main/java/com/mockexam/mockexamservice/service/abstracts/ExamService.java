@@ -10,5 +10,5 @@ public interface ExamService extends ReadWriteService<Exam, Long>{
     List<Exam> findAllByUserId(Long id);
     List<Exam> findAllByExamCategoryId(Long id);
     Exam persist(Exam exam, Principal principal);
-    Iterable<Exam> findAll(int page, int size);
+    Iterable<Exam> findAllPublic(int page, int size);
 }
