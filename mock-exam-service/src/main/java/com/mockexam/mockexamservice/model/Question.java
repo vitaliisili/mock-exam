@@ -3,6 +3,7 @@ package com.mockexam.mockexamservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,11 +18,13 @@ import java.util.Set;
 public class Question extends BaseEntity{
 
     @Column(columnDefinition="text", length=4048)
+    @NotNull
     private String title;
 
     @Column(columnDefinition="text", length=4048)
     private String explanation;
 
+    @NotNull
     private boolean isMultiple;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
