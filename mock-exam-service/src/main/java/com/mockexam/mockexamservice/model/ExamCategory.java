@@ -18,9 +18,9 @@ public class ExamCategory extends BaseEntity{
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH}, mappedBy = "examCategories", fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @ToString.Exclude
     @JsonIgnore
-    private Set<Exam> exams = new HashSet<>();
+    private Exam exam;
 
 }

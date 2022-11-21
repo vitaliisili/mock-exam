@@ -20,5 +20,7 @@ export const API_PUT_QUESTION = `${HOST}/question`
 export const API_POST_QUESTION = `${HOST}/question`
 export const API_DELETE_QUESTION_BY_ID = `${HOST}/question`
 
+export const API_DELETE_EXAM_CATEGORY_BY_ID = `${HOST}/exam-category`
+
 
 

@@ -1,5 +1,6 @@
 package com.mockexam.mockexamservice.service;
 
+import com.mockexam.mockexamservice.exception.BadRequestException;
 import com.mockexam.mockexamservice.exception.UserNotFoundException;
 import com.mockexam.mockexamservice.model.Exam;
 import com.mockexam.mockexamservice.model.User;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +43,7 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
     }
 
     @Override
-    public List<Exam> findAllByExamCategoryId(Long id) {
+    public List<Exam> findAllByExamCategoryId(Long id) { // TODO: change by category name
         return examRepository.findAllByExamCategoryId(id);
     }
 
@@ -52,11 +54,8 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
                 new UserNotFoundException(String.format("User with username %s not found", principal.getName())));
 
         exam.setUser(user);
-        exam.getExamCategories().forEach(category -> {
-            if (category.getId() == null) {
-                examCategoryService.persist(category);
-            }
-        });
+        exam.getExamCategories().forEach(exam::addExamCategory);
+        System.out.println("SAVE EXAM");
         examRepository.save(exam);
         return exam;
     }
@@ -75,9 +74,16 @@ public class ExamServiceImpl extends ReadWriteServiceAbstraction<Exam, Long> imp
     @Override
     public Exam update(Exam entity) {
         Exam toUpdate = examRepository.findById(entity.getId()).orElseThrow(() ->
-                new UserNotFoundException(String.format("Exam with %s not found", entity.getId())));
-        examRepository.save(examMapper.updateMapping(entity, toUpdate));
+                new BadRequestException(String.format("Exam with id %s not found", entity.getId())));
 
+        toUpdate.setExamCategories(new HashSet<>());
+        entity.getExamCategories().forEach(category -> {
+            if (category.getId() == null) {
+                examCategoryService.persist(category);
+            }
+        });
+
+        examRepository.save(examMapper.updateMapping(entity, toUpdate));
         return entity;
     }
 

@@ -50,7 +50,7 @@ const StyledMyExams = styled.div`
         border-radius: ${({theme}) => theme.size.borderRadiusNormal};
         box-shadow: ${({theme}) => theme.decoration.boxShadowThin};
         cursor: pointer;
-        max-width: 250px;
+        width: 240px;
         .card-section {
           padding: 15px;
         }

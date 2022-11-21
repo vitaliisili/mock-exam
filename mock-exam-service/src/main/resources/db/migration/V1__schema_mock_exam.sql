@@ -1,5 +1,4 @@
-CREATE TABLE USERS
-(
+CREATE TABLE USERS(
     id          BIGSERIAL,
     email       varchar UNIQUE NOT NULL,
     username    varchar UNIQUE NOT NULL,
@@ -8,21 +7,18 @@ CREATE TABLE USERS
     second_name varchar,
     created_at  timestamp      NOT NULL,
     modified_at timestamp,
-    PRIMARY KEY (id)
-);
+    PRIMARY KEY (id));
 
-CREATE TABLE ROLE
-(
+
+CREATE TABLE ROLE(
     id          BIGSERIAL,
     name        varchar   NOT NULL,
     created_at  timestamp NOT NULL,
     modified_at timestamp,
-    PRIMARY KEY (id)
-);
+    PRIMARY KEY (id));
 
 
-CREATE TABLE EXAM
-(
+CREATE TABLE EXAM(
     id              BIGSERIAL,
     title           varchar   NOT NULL,
     description     varchar(2048),
@@ -32,21 +28,19 @@ CREATE TABLE EXAM
     created_at      timestamp NOT NULL,
     modified_at     timestamp,
     user_id        BIGSERIAL,
-    PRIMARY KEY (id)
-);
+    PRIMARY KEY (id));
 
-CREATE TABLE EXAM_CATEGORY
-(
+
+CREATE TABLE EXAM_CATEGORY(
     id          BIGSERIAL,
     name        varchar,
     created_at  timestamp NOT NULL,
     modified_at timestamp,
-    PRIMARY KEY (id)
-);
+    exam_id     BIGSERIAL,
+    PRIMARY KEY (id));
 
 
-CREATE TABLE QUESTION
-(
+CREATE TABLE QUESTION(
     id          BIGSERIAL,
     title       text      NOT NULL,
     explanation text,
@@ -54,38 +48,36 @@ CREATE TABLE QUESTION
     created_at  timestamp NOT NULL,
     modified_at timestamp,
     exam_id     BIGSERIAL,
-    PRIMARY KEY (id)
-);
+    PRIMARY KEY (id));
 
-CREATE TABLE QUESTION_CATEGORY
-(
+
+CREATE TABLE QUESTION_CATEGORY(
     id          BIGSERIAL,
     name        varchar,
     created_at  timestamp NOT NULL,
     modified_at timestamp,
-    PRIMARY KEY (id)
-);
+    PRIMARY KEY (id));
 
-CREATE TABLE QUESTION_ANSWER
-(
+
+CREATE TABLE QUESTION_ANSWER(
     id          BIGSERIAL,
     content     varchar,
     is_correct  boolean   NOT NULL,
     created_at  timestamp NOT NULL,
     modified_at timestamp,
     question_id BIGSERIAL,
-    PRIMARY KEY (id)
-);
+    PRIMARY KEY (id));
 
-CREATE TABLE USERS_ROLE
-(
+
+CREATE TABLE USERS_ROLE(
     USERS_id BIGSERIAL,
     ROLE_id  BIGSERIAL,
-    PRIMARY KEY (USERS_id, ROLE_id)
-);
+    PRIMARY KEY (USERS_id, ROLE_id));
+
 
 ALTER TABLE USERS_ROLE
     ADD FOREIGN KEY (USERS_id) REFERENCES USERS (id);
+
 
 ALTER TABLE USERS_ROLE
     ADD FOREIGN KEY (ROLE_id) REFERENCES ROLE (id);
@@ -94,32 +86,23 @@ ALTER TABLE USERS_ROLE
 ALTER TABLE EXAM
     ADD FOREIGN KEY (user_id) REFERENCES USERS (id);
 
-CREATE TABLE EXAM_CATEGORIES
-(
-    EXAM_id          BIGSERIAL,
-    EXAM_CATEGORY_id BIGSERIAL,
-    PRIMARY KEY (EXAM_id, EXAM_CATEGORY_id)
-);
 
-ALTER TABLE EXAM_CATEGORIES
-    ADD FOREIGN KEY (EXAM_id) REFERENCES EXAM;
-
-ALTER TABLE EXAM_CATEGORIES
-    ADD FOREIGN KEY (EXAM_CATEGORY_id) REFERENCES EXAM_CATEGORY (id);
+ALTER TABLE EXAM_CATEGORY
+    ADD FOREIGN KEY (exam_id) REFERENCES EXAM;
 
 
 ALTER TABLE QUESTION
     ADD FOREIGN KEY (exam_id) REFERENCES EXAM;
 
-CREATE TABLE QUESTION_CATEGORIES
-(
+CREATE TABLE QUESTION_CATEGORIES(
     QUESTION_id          BIGSERIAL,
     QUESTION_CATEGORY_id BIGSERIAL,
-    PRIMARY KEY (QUESTION_id, QUESTION_CATEGORY_id)
-);
+    PRIMARY KEY (QUESTION_id, QUESTION_CATEGORY_id));
+
 
 ALTER TABLE QUESTION_CATEGORIES
     ADD FOREIGN KEY (QUESTION_id) REFERENCES QUESTION (id);
+
 
 ALTER TABLE QUESTION_CATEGORIES
     ADD FOREIGN KEY (QUESTION_CATEGORY_id) REFERENCES QUESTION_CATEGORY (id);

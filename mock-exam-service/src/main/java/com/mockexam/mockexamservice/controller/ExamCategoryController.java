@@ -35,7 +35,7 @@ public class ExamCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<String> persistExamCategory(@RequestBody ExamCategoryDto examCategoryDto) {
+    public ResponseEntity<String> persistExamCategory(@RequestBody ExamCategoryDto examCategoryDto) { //TODO: delete
         examCategoryService.persist(examCategoryMapper.toExamCategory(examCategoryDto));
         return ResponseEntity.ok("ExamCategory has been saved successful");
     }
@@ -47,13 +47,13 @@ public class ExamCategoryController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateExamCategory(@RequestBody ExamCategoryDto examCategoryDto) {
+    public ResponseEntity<String> updateExamCategory(@RequestBody ExamCategoryDto examCategoryDto) { // TODO: delete
         examCategoryService.update(examCategoryMapper.toExamCategory(examCategoryDto));
         return ResponseEntity.ok("ExamCategory has been updated successful");
     }
 
     @GetMapping("/principal")
-    public ResponseEntity<List<ExamCategoryDto>> getAllByCurrentUser(Principal principal) {
+    public ResponseEntity<List<ExamCategoryDto>> getAllByCurrentUser(Principal principal) { //TODO: delete
         List<ExamCategoryDto> examCategoryDtoList =
                 examCategoryMapper.toExamCategoryDtoList(examCategoryService.findAllByCurrentUser(principal.getName()));
 

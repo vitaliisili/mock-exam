@@ -32,11 +32,12 @@ public class Exam extends BaseEntity{
     @ToString.Exclude
     private User user;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "EXAM_CATEGORIES",
-            joinColumns = {@JoinColumn(name = "exam_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "exam_category_id", referencedColumnName = "id")})
-    @ToString.Exclude
+//    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JoinTable(name = "EXAM_CATEGORIES",
+//            joinColumns = {@JoinColumn(name = "exam_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "exam_category_id", referencedColumnName = "id")})
+//    @ToString.Exclude
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "exam")
     private Set<ExamCategory> examCategories = new HashSet<>();
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "exam")
@@ -45,7 +46,7 @@ public class Exam extends BaseEntity{
     private Set<Question> questions = new HashSet<>();
 
     public void addExamCategory(ExamCategory examCategory) {
-        examCategory.getExams().add(this);
+        examCategory.setExam(this);
         this.examCategories.add(examCategory);
     }
 }

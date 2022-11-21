@@ -5,10 +5,18 @@ import {AiOutlineCheck, AiOutlineCloseCircle, AiOutlinePlusCircle} from "react-i
 import {RiQuestionAnswerLine} from "react-icons/ri";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import {API_GET_EXAM_CATEGORY_BY_CURRENT_USER, API_POST_SAVE_EXAM, API_UPDATE_EXAM} from "../constant/ApiUrl";
+import {
+    API_DELETE_EXAM_CATEGORY_BY_ID,
+    API_GET_EXAM_CATEGORY_BY_CURRENT_USER,
+    API_POST_SAVE_EXAM,
+    API_UPDATE_EXAM
+} from "../constant/ApiUrl";
 import {getCookie} from "../service/cookies-service";
 import {useEffect, useState} from "react";
 import {MdSystemUpdateAlt} from "react-icons/md";
+// import {GrEdit, GrTrash} from "react-icons/gr";
+// import {BiTrash} from "react-icons/bi";
+import {SlTrash} from "react-icons/sl";
 
 const StyledExamForm = styled.form`
   margin-top: 40px;
@@ -44,7 +52,7 @@ const StyledExamForm = styled.form`
   .block-section {
     display: flex;
     flex-direction: row;
-    
+
     &-item {
       margin-right: 150px;
 
@@ -52,11 +60,12 @@ const StyledExamForm = styled.form`
         margin-top: 15px;
         padding: 5px;
         font-size: ${({theme}) => theme.size.fontLabelSize};
+
         ::placeholder {
           color: ${({theme}) => theme.colors.fontLabel};
         }
       }
-      
+
       &-error {
         margin-top: 40px;
         margin-left: -100px;
@@ -77,26 +86,40 @@ const StyledExamForm = styled.form`
   }
 
   .exam-category {
+    display: flex;
     background-color: ${({theme}) => theme.colors.backgroundGrey};
     border-radius: ${({theme}) => theme.size.borderRadiusRound};
-    padding: 5px 15px;
+    padding: 5px 30px 5px 15px;
     margin-right: 10px;
     color: ${({theme}) => theme.colors.fontLight};
     margin-bottom: 10px;
     font-size: ${({theme}) => theme.size.fontLabelSize};
-    cursor: pointer;
     box-shadow: ${({theme}) => theme.decoration.boxShadowCategory};
+    position: relative;
+    
+    &-text {
+      
+    }
+    
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 5px;
+      border-top-right-radius: ${({theme}) => theme.size.borderRadiusRound};
+      border-bottom-right-radius: ${({theme}) => theme.size.borderRadiusRound};
+      background-color: #6C7376;
+      margin-left: 10px;
+      height: 100%;
+      top: 0;
+      right: 0;
+      position: absolute;
+      color: #B7856F;
+      cursor: pointer;
+      font-size: 12px;
+    }
   }
 
-  .select-category-header {
-    color: ${({theme}) => theme.colors.fontLabel};
-    margin-top: 20px;
-  }
-
-  .selected-category {
-    background-color: ${({theme}) => theme.colors.backgroundSelected};
-  }
-  
   .add-category-icon {
     font-size: 27px;
     color: ${({theme}) => theme.colors.backgroundSelected};
@@ -218,95 +241,87 @@ const StyledExamForm = styled.form`
 
 const ExamForm = ({type, exam}) => {
 
-    const {id} = useParams()
+    const {id: examId} = useParams()
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [isPublic, setIsPublic] = useState(false)
     const [time, setTime] = useState("")
     const [passPercentage, setPassPercentage] = useState("")
-    const [isPending, setPending] = useState(true)
-    const [error, setError] = useState(null)
     const [categories, setCategories] = useState([])
-    const [selectedCategories, setSelectedCategories] = useState([])
     const [iconActive, setIconActive] = useState(true)
     const [categoryText, setCategoryText] = useState("")
     const [formError, setFormError] = useState("")
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get(API_GET_EXAM_CATEGORY_BY_CURRENT_USER, {
-            headers: {
-                "Authorization": `Bearer ${getCookie("token")}`
-            }
-        })
-            .then(response => {
-                if (exam != null && type === "update") {
-                    setTitle(exam.title)
-                    setDescription(exam.description)
-                    setIsPublic(exam.isPublic)
-                    setTime(exam.time)
-                    setPassPercentage(exam.passPercentage)
-                    setSelectedCategories(exam.examCategories)
-
-                }
-
-                let allCategories = response.data;
-                allCategories = allCategories.filter(item => !selectedCategories.find(s => s.name === item.name))
-                setCategories(allCategories)
-
-                setPending(false)
-                setError(null)
-            }).catch(error => {
-            setPending(false)
-            setError(error)
-        })
-
-    }, [isPending])
-
-    const categorySelectHandle = (e, category, isSelected) => {
-
-        if (isSelected) {
-            for (let i = 0; i < selectedCategories.length; i++) {
-                if (selectedCategories[i].name === category.name) {
-                    selectedCategories.splice(i, 1)
-                    break
-                }
-            }
-            setCategories([...categories, category])
+        if (type === "update") {
+            setTitle(exam.title)
+            setDescription(exam.description)
+            setIsPublic(exam.isPublic)
+            setTime(exam.time)
+            setPassPercentage(exam.passPercentage)
+            setCategories(exam.examCategories)
         }
-        else {
-            for (let i = 0; i < categories.length; i++) {
-                if (categories[i].name === category.name) {
-                    categories.splice(i, 1)
-                    break
-                }
-            }
+    }, [exam, type])
 
-            setSelectedCategories([...selectedCategories, category])
+    const addCategoryHandler = () => {
+        const category = {
+            name: categoryText
+        }
+        setCategories([...categories, category])
+        setCategoryText("")
+        setIconActive(true)
+    }
+
+    const deleteCategory = (position) => {
+        let categoriesCopy = categories;
+        const category = categoriesCopy.splice(position, 1)
+        setCategories([...categoriesCopy])
+
+        if (category[0].id) {
+            console.log(category[0].id)
+            axios({
+                url: `${API_DELETE_EXAM_CATEGORY_BY_ID}/${category[0].id}`,
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${getCookie("token")}`
+                }
+            }).then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
         }
     }
 
-    const addCategoryHandler = () => {
-
-        let category = {}
-
-        if (categoryText.trim() === "") {
-            setIconActive(!iconActive)
+    const onChangeTime = (e) => {
+        const value = e.target.value
+        if (value > 100) {
+            setTime('1500')
             return
         }
 
-        category.name = categoryText.trim()
-
-        if (categories.find(c => c.name === category.name)) {
-            console.log("category already exist") // todo: show this message on UI
-            setCategoryText("")
-            setIconActive(!iconActive)
-        } else {
-            setCategories([...categories, category])
-            setCategoryText("")
-            setIconActive(!iconActive)
+        if(value < 0) {
+            setTime("0")
+            return;
         }
 
+        setTime(value)
+    }
+
+    const onChangePercentage = (e) => {
+        const value = e.target.value
+        if (value > 100) {
+            setPassPercentage('100')
+            return
+        }
+
+        if(value < 0) {
+            setPassPercentage("0")
+            return;
+        }
+
+        setPassPercentage(value)
     }
 
     const checkExamForm = () => {
@@ -329,7 +344,6 @@ const ExamForm = ({type, exam}) => {
     }
 
     const saveExam = () => {
-
         if (!checkExamForm()) return
 
         axios({
@@ -339,17 +353,17 @@ const ExamForm = ({type, exam}) => {
                 "Authorization": `Bearer ${getCookie("token")}`
             },
             data: {
-                id,
+                id: examId,
                 title,
                 description,
                 isPublic,
                 time,
                 passPercentage,
-                examCategories: selectedCategories
+                examCategories: categories
             },
         }).then(res => {
             if (res.status === 200) {
-                navigate(`/exam-questions/${type === "create" ? res.data.id : id}`)
+                navigate(`/exam-questions/${type === "create" ? res.data.id : examId}`)
             }
         }).catch(error => {
             console.log(error)
@@ -379,13 +393,13 @@ const ExamForm = ({type, exam}) => {
             </div>
 
             <div className="category-section section-wrapper">
-                <div className="select-category-header">All EXAM CATEGORY</div>
+                <div className="select-category-header">EXAM CATEGORIES</div>
                 <div className="category-wrapper">
                     <div className="category-select-section">
                         {categories && categories.map((category, index) => (
-                            <div key={index} onClick={(e) => categorySelectHandle(e, category, false)}
-                                 className="exam-category">
-                                <span>{category.name}</span>
+                            <div key={index} className="exam-category">
+                                <div className="exam-category-text">{category.name}</div>
+                                <div onClick={() => deleteCategory(index)} className="exam-category-btn"><SlTrash className="exam-category-delete-icon"/></div>
                             </div>
                         ))}
                         <AiOutlinePlusCircle
@@ -417,16 +431,6 @@ const ExamForm = ({type, exam}) => {
                         </div>
                     </div>
 
-                    <div className="select-category-header">SELECTED EXAM CATEGORY</div>
-                    <div className="category-select-section">
-                        {selectedCategories && selectedCategories.map((category, index) => (
-                            <div key={index} onClick={(e) => categorySelectHandle(e, category, true)}
-                                 className="exam-category selected-category">
-                                <span>{category.name}</span>
-                            </div>
-                        ))}
-                    </div>
-
                 </div>
 
 
@@ -448,12 +452,14 @@ const ExamForm = ({type, exam}) => {
 
                     <div className="block-section-item">
                         <div className="access-title select-category-header">EXAM TIME MINUTE</div>
-                        <input onChange={(e) => setTime(e.target.value > 1500 ? 1500 : e.target.value)} value={time} className="block-section-item-input" type="number" placeholder="Max 1500 minute"/>
+                        <input onChange={onChangeTime} value={time} className="block-section-item-input" type="number"
+                               placeholder="Max 1500 minute"/>
                     </div>
 
                     <div className="block-section-item">
                         <div className="access-title select-category-header">PERCENTAGE TO PASS</div>
-                        <input onChange={(e) => setPassPercentage(e.target.value > 100 ? 100 : e.target.value)} value={passPercentage} className="block-section-item-input" type="number" placeholder="Max 100%"/>
+                        <input onChange={onChangePercentage} value={passPercentage} className="block-section-item-input"
+                               type="number" placeholder="Max 100%"/>
                     </div>
 
                 </div>
@@ -467,7 +473,8 @@ const ExamForm = ({type, exam}) => {
                             <MdSystemUpdateAlt className="question-btn-icon"/>
                         }
 
-                        <span className="question-btn-text">{type === "create" ? "Add Questions" : "Save Changes"}</span>
+                        <span
+                            className="question-btn-text">{type === "create" ? "Add Questions" : "Save Changes"}</span>
                     </div>
                 </div>
 
