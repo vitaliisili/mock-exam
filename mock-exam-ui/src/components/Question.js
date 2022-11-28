@@ -8,6 +8,7 @@ import axios from "axios";
 import {API_DELETE_QUESTION_BY_ID} from "../constant/ApiUrl";
 import {getCookie} from "../service/cookies-service";
 
+
 const StyledQuestion = styled.div`
   margin-top: 40px;
   box-shadow: ${({theme}) => theme.decoration.boxShadowDark};
@@ -16,7 +17,7 @@ const StyledQuestion = styled.div`
   border: 1px solid ${({theme}) => theme.colors.inputBorder};
   
   .question-preview {
-    padding: 15px;
+    padding: 35px;
     display: flex;
     flex-direction: column;
 
@@ -65,7 +66,7 @@ const StyledQuestion = styled.div`
 
     &-answers-text {
       font-weight: bold;
-      margin-top: ${({theme}) => theme.size.defaultPadding};
+      margin-top: 40px;
     }
     
     &-answers {
@@ -135,6 +136,7 @@ const StyledQuestion = styled.div`
 
         &-text {
           margin-left: 10px;
+          font-weight: bold;
         }
       }
 
@@ -142,14 +144,18 @@ const StyledQuestion = styled.div`
     }
     
     &-explanation {
-      margin-top: 30px;
+      margin-top: 40px;
       
       &-label {
         font-weight: bold;
       }
       
       &-content {
-        margin-top: 5px;
+        margin-top: ${({theme}) => theme.size.defaultPadding};
+        a {
+          display: block;
+          margin-top: 7px;
+        }
       }
     }
   }
@@ -176,22 +182,16 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
         })
     }
 
-    useEffect(() => {
-        document.querySelectorAll("pre").forEach((element) => {
-            console.log(element.children)
-        })
-
-    }, [])
-
     return (
         <StyledQuestion>
             {
+
                 !showEdit ?
 
                     <div className="question-preview">
                         <div className="question-preview-block">
                             <div className="question-preview-index">
-                                <span className="question-preview-index-text">Question: {index + 1}</span>
+                                <span className="question-preview-index-text">Question: {index}</span>
                                 <span className="question-preview-type">{question.isMultiple ? "Multiple Choice" : "Single Answer"}</span>
                             </div>
                             <div className="question-preview-buttons">
@@ -211,7 +211,7 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
 
                             {
                                 question.questionAnswers.map((answer, index) => (
-                                    <div key={index} className={
+                                    <div key={answer.id} className={
                                         answer.isCorrect ? "question-preview-answers-item question-preview-answers-item__correct" :
                                             "question-preview-answers-item question-preview-answers-item__incorrect"}>
                                         {
@@ -236,7 +236,7 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
 
                         <div className="question-preview-explanation">
                             <div className="question-preview-explanation-label">Explanation:</div>
-                            <div className="question-preview-content" dangerouslySetInnerHTML={{__html: question.explanation}}></div>
+                            <div className="question-preview-explanation-content" dangerouslySetInnerHTML={{__html: question.explanation}}></div>
                         </div>
                     </div>
 
@@ -244,7 +244,6 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
                     <div className="question-modal-form">
                         <QuestionForm data={question} type={"update"}
                                       callBackShowForm={(toggle) => setShowEdit(toggle)}
-                                      // callBackQuestionData={(item) => callBackUpdateData(item)}
                                       position={index}
                         />
                     </div>

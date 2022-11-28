@@ -7,6 +7,9 @@ const StyledDashBoard = styled.div`
 `
 
 const Dashboard = () => {
+    const code = `
+console.log("hello world");
+`;
 
     return (
         <Container>

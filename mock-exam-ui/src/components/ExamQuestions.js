@@ -259,7 +259,6 @@ const ExamQuestions = () => {
                                         <div className="exam-info-block-item-inline exam-info-question_number">
                                             <RiQuestionnaireLine
                                                 className="exam-info-block-item-inline-icon exam-info-question_number-icon"/>
-                                            {/*<div className="exam-info-question_number-text">{exam.questionNumber}</div>   todo: implement this field on server side */}
                                             {questions &&
                                                 <div className="exam-info-question_number-text">{questions.length}</div>
                                             }
@@ -270,7 +269,6 @@ const ExamQuestions = () => {
                                         <div className="exam-info-block-item-inline exam-info-question_time">
                                             <AiOutlineFieldTime
                                                 className="exam-info-block-item-inline-icon exam-info-question_time-icon"/>
-                                            {/*<div className="exam-info-question_time-text">{exam.time} Minutes</div>   todo: implement this field on server side */}
                                             <div className="exam-info-question_time-text">{exam.time} minutes</div>
                                         </div>
                                     </div>
@@ -279,7 +277,6 @@ const ExamQuestions = () => {
                                         <div className="exam-info-block-item-inline exam-info-question_pass">
                                             <AiOutlineFileDone
                                                 className="exam-info-block-item-inline-icon exam-info-question_pass-icon"/>
-                                            {/*<div className="exam-info-question_pass-text">{exam.passPercent}% Required to pass</div>   todo: implement this field on server side */}
                                             <div className="exam-info-question_time-text">{exam.passPercentage}% Required to pass</div>
                                         </div>
                                     </div>
@@ -331,7 +328,7 @@ const ExamQuestions = () => {
                             <Question
                                 key={index}
                                 data={question}
-                                index={index}
+                                index={questions.length - index}
                                 callBackShowCreate={(toggle) => setShowCreate(toggle)}
                                 callBackDeleteQuestion={(index) => deleteQuestion(index)}
                             />

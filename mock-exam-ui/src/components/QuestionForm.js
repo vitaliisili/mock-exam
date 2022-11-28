@@ -5,7 +5,13 @@ import {BsPlusSquare} from "react-icons/bs";
 import QuestionAnswer from "./QuestionAnswer";
 import QuestionAnswerForm from "./QuestionAnswerForm";
 import axios from "axios";
-import {API_POST_QUESTION, API_POST_SAVE_EXAM, API_PUT_QUESTION, API_UPDATE_EXAM} from "../constant/ApiUrl";
+import {
+    API_DELETE_QUESTION_ANSWER_BY_ID,
+    API_POST_QUESTION,
+    API_POST_SAVE_EXAM,
+    API_PUT_QUESTION,
+    API_UPDATE_EXAM
+} from "../constant/ApiUrl";
 import {getCookie} from "../service/cookies-service";
 import {useParams} from "react-router-dom";
 import TextEditor from "./TextEditor";
@@ -32,7 +38,7 @@ const StyledQuestionForm = styled.form`
       color: ${({theme}) => theme.colors.fontLight};
       padding: 10px;
       border-radius: ${({theme}) => theme.size.borderRadiusThin};
-      
+
       &-index {
         margin-left: 5px;
       }
@@ -52,12 +58,12 @@ const StyledQuestionForm = styled.form`
     }
 
     &-answers {
-      
+
       &-list {
         border: 1px solid ${({theme}) => theme.colors.inputBorder};
         border-radius: ${({theme}) => theme.size.borderRadiusThin};
       }
-      
+
       &-select {
         display: flex;
         margin-top: 10px;
@@ -99,9 +105,9 @@ const StyledQuestionForm = styled.form`
         margin-top: 30px;
         box-shadow: ${({theme}) => theme.decoration.boxShadowDark};
         padding: 20px;
-        
+
         &-add_btn {
-          //background-color: ${({theme}) => theme.colors.backgroundDarkThin};
+            //background-color: ${({theme}) => theme.colors.backgroundDarkThin};
           background-color: #7A8185;
           display: flex;
           align-items: center;
@@ -112,38 +118,38 @@ const StyledQuestionForm = styled.form`
           color: ${({theme}) => theme.colors.fontLight};
           font-weight: bold;
           margin-top: 20px;
-          
+
           :hover {
             background-color: #72797D;
             color: ${({theme}) => theme.colors.textHover};
           }
-          
+
           &-text {
             margin-left: 5px;
           }
         }
       }
     }
-    
+
     &-explanation {
       display: flex;
       flex-direction: column;
-      
+
       &-label {
         color: ${({theme}) => theme.colors.fontLabel};
       }
-      
-      &-input  {
+
+      &-input {
         margin-top: 10px;
         padding: 10px;
         min-height: 100px;
       }
     }
-    
+
     &-buttons {
       display: flex;
       justify-content: end;
-      
+
       &-item {
         background-color: ${({theme}) => theme.colors.backgroundGrey};
         color: ${({theme}) => theme.colors.fontLight};
@@ -151,16 +157,16 @@ const StyledQuestionForm = styled.form`
         padding: 5px 25px;
         margin-right: 10px;
         font-weight: bold;
-        
+
         :hover {
           filter: brightness(95%);
         }
       }
-      
+
       &-save {
         background-color: ${({theme}) => theme.colors.backgroundSelected};
       }
-      
+
       &-close {
         background-color: ${({theme}) => theme.colors.iconHover};
       }
@@ -178,7 +184,6 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
     const [answers, setAnswers] = useState([])
     const [showAnswerForm, setShowAnswerForm] = useState(false)
 
-
     useEffect(() => {
         if (type === "update") {
             setTitle(question.title)
@@ -195,12 +200,27 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
 
     const addAnswer = (item) => {
         setAnswers([...answers, item])
+        console.log(answers)
     }
 
     const deleteAnswer = (position) => {
         const answersCopy = answers
-        answersCopy.splice(position, 1)
+        const removedAnswer = answersCopy.splice(position, 1)
         setAnswers([...answersCopy])
+
+        if (removedAnswer[0].id) {
+            axios({
+                url: `${API_DELETE_QUESTION_ANSWER_BY_ID}/${removedAnswer[0].id}`,
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${getCookie("token")}`
+                }
+            }).then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     const saveQuestion = (e) => {
@@ -213,29 +233,53 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
             question.questionAnswers = answers
         }
 
-        const questionToSave = {
-            id: `${type === "create" ? null : question.id}`,
-            title,
-            explanation,
-            isMultiple,
-            examId: examId,
-            questionAnswers: answers
-        }
-
-        axios({
+        const url = type === "create" ? API_POST_QUESTION : API_PUT_QUESTION
+        fetch(url, {
             method: type === "create" ? "POST" : "PUT",
-            url: type === "create" ? API_POST_QUESTION : API_PUT_QUESTION,
             headers: {
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
                 "Authorization": `Bearer ${getCookie("token")}`
             },
-            data: {...questionToSave},
-        }).then(res => {
-            if (res.status === 200) {
-                callBackQuestionData(res.data)
-            }
-        }).catch(error => {
-            console.log(error)
+            body: JSON.stringify({
+                id: type === "create" ? null : question.id,
+                title,
+                explanation,
+                isMultiple,
+                examId: examId,
+                questionAnswers: [...answers],
+            })
         })
+            .then(res => {
+                return res.json()
+            }).then(data => {
+            callBackQuestionData(data)
+        })
+            .catch(err => {
+                console.log(err)
+            })
+
+        // axios({
+        //     method: type === "create" ? "POST" : "PUT",
+        //     url: type === "create" ? API_POST_QUESTION : API_PUT_QUESTION,
+        //     headers: {
+        //         "Authorization": `Bearer ${getCookie("token")}`
+        //     },
+        //     data: {
+        //         id: type === "create" ? null : question.id,
+        //         title,
+        //         explanation,
+        //         isMultiple,
+        //         examId: examId,
+        //         questionAnswers: [...answers],
+        //     }
+        // }).then(res => {
+        //     if (res.status === 200) {
+        //         callBackQuestionData(res.data)
+        //     }
+        // }).catch(error => {
+        //     console.log(error)
+        // })
 
         callBackShowForm(false)
     }
@@ -244,7 +288,8 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
         <StyledQuestionForm onSubmit={saveQuestion}>
             <section className="form-section">
                 <div className="form-section-header">
-                    {type === "create" ? <span>CREATE NEW QUESTION</span> : <span>EDIT QUESTION <span className="form-section-header-index">{position + 1}</span></span>}
+                    {type === "create" ? <span>CREATE NEW QUESTION</span> :
+                        <span>EDIT QUESTION <span className="form-section-header-index">{position + 1}</span></span>}
                 </div>
             </section>
 
@@ -285,7 +330,8 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
                         <div>
                             {
                                 !showAnswerForm ?
-                                    <button onClick={(e) => setShowAnswerForm(true)} className="form-section-answers-list-add_btn">
+                                    <button onClick={(e) => setShowAnswerForm(true)}
+                                            className="form-section-answers-list-add_btn">
                                         <BsPlusSquare className="form-section-answers-list-add_btn-icon"/>
                                         <span className="form-section-answers-list-add_btn-text">Add Answer</span>
                                     </button>
@@ -309,8 +355,12 @@ const QuestionForm = ({data: question, type, position, callBackShowForm, callBac
 
             <section className="form-section">
                 <div className="form-section-buttons">
-                    <button onClick={saveQuestion} className="form-section-buttons-item form-section-buttons-save">Save</button>
-                    <button onClick={() => callBackShowForm(false)} className="form-section-buttons-item form-section-buttons-close">Close</button>
+                    <button onClick={saveQuestion}
+                            className="form-section-buttons-item form-section-buttons-save">Save
+                    </button>
+                    <button onClick={() => callBackShowForm(false)}
+                            className="form-section-buttons-item form-section-buttons-close">Close
+                    </button>
                 </div>
             </section>
         </StyledQuestionForm>

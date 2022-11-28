@@ -186,6 +186,9 @@ const GlobalStyles = createGlobalStyle`
 
   p a {
     color: #C86671 !important;
+    :hover {
+      color: #A7525C !important;
+    }
   }
 
   //quill style

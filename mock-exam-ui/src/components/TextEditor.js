@@ -33,10 +33,9 @@ const TextEditor = ({data, setData}) => {
             e.preventDefault();
 
     }
-
     const modules = {
         toolbar: [
-            ['bold', 'italic', 'underline','blockquote', 'code-block'],
+            ['bold', 'italic', 'underline','blockquote', 'code-block', 'link'],
             [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
             ['clean']
         ],
