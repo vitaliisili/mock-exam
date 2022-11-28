@@ -10,6 +10,7 @@ import com.mockexam.mockexamservice.service.abstracts.ExamService;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,12 +25,14 @@ public abstract class QuestionMapper extends MapperUtil<Question>{
     @Mapping(target = "examId", source = "question.exam.id")
     public abstract QuestionDto toQuestionDto(Question question);
 
+//    @Mapping(target = "exam.id", source = "questionDto.examId")
+//    public abstract Question toQuestion(QuestionDto questionDto);
     public Question toQuestion(QuestionDto questionDto) {
         Question question = Question.builder()
                 .title(questionDto.getTitle())
                 .explanation(questionDto.getExplanation())
                 .isMultiple(questionDto.isMultiple())
-                .questionAnswers(new HashSet<>())
+                .questionAnswers(new ArrayList<>())
                 .exam(new Exam())
                 .build();
 

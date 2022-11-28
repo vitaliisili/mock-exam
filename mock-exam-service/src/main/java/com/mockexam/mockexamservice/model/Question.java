@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,7 +40,7 @@ public class Question extends BaseEntity{
             CascadeType.MERGE,
             CascadeType.PERSIST}, mappedBy = "question")
     @ToString.Exclude
-    private Set<QuestionAnswer> questionAnswers = new HashSet<>();
+    private List<QuestionAnswer> questionAnswers = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "QUESTION_CATEGORIES",

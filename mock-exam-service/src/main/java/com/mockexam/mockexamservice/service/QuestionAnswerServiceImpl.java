@@ -21,4 +21,5 @@ public class QuestionAnswerServiceImpl extends ReadWriteServiceAbstraction<Quest
         this.questionAnswerMapper = questionAnswerMapper;
     }
 
+
 }

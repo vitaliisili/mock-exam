@@ -20,6 +20,6 @@ public class QuestionDto {
     @JsonProperty("isMultiple")
     private boolean isMultiple;
     private Long examId;
-    private Set<QuestionAnswerDto> questionAnswers;
+    private List<QuestionAnswerDto> questionAnswers;
 
 }
