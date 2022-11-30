@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface QuestionService extends ReadWriteService<Question, Long> {
 
-    List<Question> findAllByExamId(Long id);
+    List<Question> findAllByExamIdDesc(Long id);
+    List<Question> findAllByExamIdAsc(Long id);
 
 }

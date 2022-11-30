@@ -3,7 +3,12 @@ import styled from "styled-components";
 import Container from "./Container";
 import {useNavigate, useParams} from "react-router-dom";
 import useFetchData from "../service/useFetchData";
-import {API_DELETE_EXAM_BY_ID, API_GET_EXAM_BY_ID, API_GET_QUESTIONS_BY_EXAM_ID} from "../constant/ApiUrl";
+import {
+    API_DELETE_EXAM_BY_ID,
+    API_GET_EXAM_BY_ID,
+    API_GET_QUESTIONS_BY_EXAM_ID,
+    API_GET_QUESTIONS_BY_EXAM_ID_DESC
+} from "../constant/ApiUrl";
 import {MdOutlinePeopleOutline, MdSecurity} from "react-icons/md";
 import {RiQuestionnaireLine} from "react-icons/ri";
 import {AiOutlineCalendar, AiOutlineFieldTime, AiOutlineFileDone} from "react-icons/ai";
@@ -171,7 +176,7 @@ const ExamQuestions = () => {
     const {id} = useParams()
     const navigate = useNavigate()
     const {data: exam, isPending, error} = useFetchData(`${API_GET_EXAM_BY_ID}/${id}`)
-    const {data: questions, isPending: questionPending, error: questionError} = useFetchData(`${API_GET_QUESTIONS_BY_EXAM_ID}/${id}`)
+    const {data: questions, isPending: questionPending, error: questionError} = useFetchData(`${API_GET_QUESTIONS_BY_EXAM_ID_DESC}/${id}/desc`)
     const [showCreate, setShowCreate] = useState(false)
     const [confirmModal, setConfirmModal] = useState(false)
     const [, updateState] = useState();

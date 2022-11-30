@@ -48,9 +48,15 @@ public class QuestionController {
         return ResponseEntity.ok(questionMapper.toQuestionDto(question));
     }
 
-    @GetMapping("/exam/{id}")
-    public ResponseEntity<List<QuestionDto>> getAllByExamId(@PathVariable Long id) {
-        List<Question> questions = questionService.findAllByExamId(id);
+    @GetMapping("/exam/{id}/desc")
+    public ResponseEntity<List<QuestionDto>> getAllByExamIdDesc(@PathVariable Long id) {
+        List<Question> questions = questionService.findAllByExamIdDesc(id);
+        return ResponseEntity.ok(questionMapper.toQuestionDtoList(questions));
+    }
+
+    @GetMapping("/exam/{id}/asc")
+    public ResponseEntity<List<QuestionDto>> getAllByExamIdAsc(@PathVariable Long id) {
+        List<Question> questions = questionService.findAllByExamIdAsc(id);
         return ResponseEntity.ok(questionMapper.toQuestionDtoList(questions));
     }
 

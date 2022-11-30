@@ -32,8 +32,14 @@ public class QuestionServiceImpl extends ReadWriteServiceAbstraction<Question, L
     }
 
     @Override
-    public List<Question> findAllByExamId(Long id) {
+    public List<Question> findAllByExamIdDesc(Long id) {
         return questionRepository.findAllByExamIdOrderByCreatedAtDesc(id);
+
+    }
+
+    @Override
+    public List<Question> findAllByExamIdAsc(Long id) {
+        return questionRepository.findAllByExamIdOrderByCreatedAtAsc(id);
 
     }
 

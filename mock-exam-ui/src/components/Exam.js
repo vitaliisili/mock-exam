@@ -207,9 +207,6 @@ const Exam = () => {
 
     const {id} = useParams()
     const {data: exam, isPending, error} = useFetchData(`${API_GET_EXAM_BY_ID}/${id}`)
-    // const [questionNumber, setQuestionNumber] = useState(50) // todo: add question number to exam in backend
-    // const [examTime, setExamTime] = useState(90) // todo: add to exam in backend
-    // const [percentRequired, setPercentRequired] = useState(76) // todo: add to exam in backend
     const [examStatistic, setExamStatistic] = useState(null) //todo : add backend part
     const [modal, setModal] = useState(false)
     const navigate = useNavigate()

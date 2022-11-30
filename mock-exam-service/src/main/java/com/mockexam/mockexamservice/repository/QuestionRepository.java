@@ -8,5 +8,6 @@ import java.util.List;
 public interface QuestionRepository extends ReadWriteRepository<Question, Long> {
 
     List<Question> findAllByExamIdOrderByCreatedAtDesc(Long id);
+    List<Question> findAllByExamIdOrderByCreatedAtAsc(Long id);
 
 }
