@@ -8,11 +8,37 @@ services:
       POSTGRES_USER: $DB_USERNAME
       POSTGRES_PASSWORD: $DB_PASSWORD
       POSTGRES_DB: $DB_NAME
+     # POSTGRES_PASSWORD_FILE: /run/secrets/db_password <-- alternative for POSTGRES_PASSWORD (to use with docker secrets)
     ports:
       - "5432:5432"
     volumes:
-      - ./db-data/:/var/lib/postgresql/data/
+      - ./db-data/postgres-data:/var/lib/postgresql/data/
     restart: always
+
+  backup-db:
+    image: prodrigestivill/postgres-backup-local
+    container_name: backup-db
+    restart: always
+    volumes:
+      - ./db-data/backups:/backups
+    links:
+      - postgres-db
+    depends_on:
+      - postgres-db
+    environment:
+       POSTGRES_HOST: postgres-db
+       POSTGRES_DB: $DB_NAME
+       POSTGRES_USER : $DB_USERNAME
+       POSTGRES_PASSWORD: $DB_PASSWORD
+       BACKUP_SUFFIX: .sql.gz
+      # POSTGRES_PASSWORD_FILE: /run/secrets/db_password <-- alternative for POSTGRES_PASSWORD (to use with docker secrets)
+       POSTGRES_EXTRA_OPTS: -Z6 --schema=public --blobs
+       SCHEDULE: "@every 0h30m0s"
+       BACKUP_KEEP_MINS: 180
+       BACKUP_KEEP_DAYS: 7
+       BACKUP_KEEP_WEEKS: 4
+       BACKUP_KEEP_MONTHS: 6
+       HEALTHCHECK_PORT: 8084
 
   adminer:
     image: adminer
