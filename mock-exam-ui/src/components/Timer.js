@@ -3,15 +3,20 @@ import {useTimer} from "react-timer-hook";
 import styled from "styled-components";
 import {IoPause} from "react-icons/io5";
 import {useState} from "react";
+import {AiOutlineFieldTime} from "react-icons/ai";
 
 const StyledTimer = styled.div `
   .timer {
-    font-size: ${({theme}) => theme.size.fontMenuSize};
+    font-size: ${({theme}) => theme.size.fontPrimarySize};
     display: flex;
+    
+    .time-icon {
+      margin-right: 2px;
+    }
     
     .time-button {
       cursor: pointer;
-      margin-left: 5px;
+      margin-left: 15px;
     }
   }
 
@@ -84,14 +89,13 @@ const Timer = ({expiryTimestamp, expireCallBack }) => {
     return (
         <StyledTimer>
             <div className="timer">
+                <span className="time-icon"><AiOutlineFieldTime/></span>
                 <span className="time-text time-hour">{hours}</span>
                 <span className="time-delimiter">:</span>
                 <span className="time-text time-minute">{minutes}</span>
                 <span className="time-delimiter">:</span>
                 <span className="time-text time-second">{seconds}</span>
-                <span className="time-button" onClick={pauseHandler}>
-                <IoPause/>
-            </span>
+                <span className="time-button" onClick={pauseHandler}><IoPause/></span>
             </div>
 
             {

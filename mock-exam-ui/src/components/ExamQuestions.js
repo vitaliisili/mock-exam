@@ -6,7 +6,6 @@ import useFetchData from "../service/useFetchData";
 import {
     API_DELETE_EXAM_BY_ID,
     API_GET_EXAM_BY_ID,
-    API_GET_QUESTIONS_BY_EXAM_ID,
     API_GET_QUESTIONS_BY_EXAM_ID_DESC
 } from "../constant/ApiUrl";
 import {MdOutlinePeopleOutline, MdSecurity} from "react-icons/md";
@@ -208,7 +207,7 @@ const ExamQuestions = () => {
     }
 
     const deleteQuestion = (position) => {
-        questions.splice(position, 1)
+        questions.splice((questions.length - 1) - position, 1)
         forceUpdate()
     }
 
@@ -305,7 +304,6 @@ const ExamQuestions = () => {
                     </div>
                 </section>
 
-
                 <section className="section">
                     <div className="section-question">
                         <div className="section-question-create">
@@ -333,7 +331,7 @@ const ExamQuestions = () => {
                             <Question
                                 key={index}
                                 data={question}
-                                index={questions.length - index}
+                                index={(questions.length - 1) - index}
                                 callBackShowCreate={(toggle) => setShowCreate(toggle)}
                                 callBackDeleteQuestion={(index) => deleteQuestion(index)}
                             />

@@ -191,7 +191,7 @@ const Question = ({data: question, index, callBackDeleteQuestion}) => {
                     <div className="question-preview">
                         <div className="question-preview-block">
                             <div className="question-preview-index">
-                                <span className="question-preview-index-text">Question: {index}</span>
+                                <span className="question-preview-index-text">Question: {index + 1}</span>
                                 <span className="question-preview-type">{question.isMultiple ? "Multiple Choice" : "Single Answer"}</span>
                             </div>
                             <div className="question-preview-buttons">
